@@ -64,72 +64,81 @@ public class PlayerField extends AppCompatActivity {
         one.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                placeSub(0,0);
-                placeDestroyer(0,0);
+                if (placeSub(0,0) || placeDestroyer(0,0)){
+                    one.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                }
             }
         });
 
         two.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                placeSub(0,1);
-                placeDestroyer(0,1);
+                if (placeSub(0,1) || placeDestroyer(0,1)){
+                    two.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                }
             }
         });
 
         three.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                placeSub(0,2);
-                placeDestroyer(0,2);
+                if (placeSub(0,2) || placeDestroyer(0,2)){
+                    three.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                }
             }
         });
 
         four.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                placeSub(1,0);
-                placeDestroyer(1,0);
+                if (placeSub(1,0) || placeDestroyer(1,0)){
+                    four.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                }
             }
         });
 
         five.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                placeSub(1,1);
-                placeDestroyer(1,1);
+                if (placeSub(1,1) || placeDestroyer(1,1)){
+                    five.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                }
             }
         });
 
         six.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                placeSub(1,2);
-                placeDestroyer(1,2);
+                if (placeSub(1,2) || placeDestroyer(1,2)){
+                    six.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                }
             }
         });
 
         seven.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                placeSub(2,0);
-                placeDestroyer(2,0);
+                if (placeSub(2,0) || placeDestroyer(2,0)){
+                    seven.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                }
             }
         });
 
         eight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                placeSub(2,1);
-                placeDestroyer(2,1);
+                if (placeSub(2,1) || placeDestroyer(2,1)){
+                    eight.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                }
             }
         });
 
         nine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                placeSub(2,2);
-                placeDestroyer(2,2);
+                if (placeSub(2,2) || placeDestroyer(2,2)){
+                    nine.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                }
             }
         });
     }
@@ -172,43 +181,52 @@ public class PlayerField extends AppCompatActivity {
         Toast.makeText(getApplicationContext(),text, Toast.LENGTH_SHORT).show();
     }
 
-    private void placeSub(int x, int y){
+    private boolean placeSub(int x, int y){
         if (checkOverlap(x,y)){
-            return;
+            return false;
         }
         if (subClicked && !hasSub){
             field[x][y].hasShip = true;
             hasSub = true;
             makeToast("You have placed a sub.");
+            return true;
         }
         else if(subClicked && hasSub){
             makeToast("You cannot have any more submarines.");
+            return false;
         }
         else if (!subClicked && !destClicked){
             makeToast("Choose a ship to place.");
+            return false;
         }
+        return false;
     }
 
-    private void placeDestroyer(int x, int y){
+    private boolean placeDestroyer(int x, int y){
         if (checkOverlap(x,y)){
-            return;
+            return false;
         }
         if (destClicked && !hasDestOne){
             field[x][y].hasShip = true;
             hasDestOne = true;
             makeToast("Choose next coordinate for your destroyer");
+            return true;
         }
         else if (destClicked && hasDestOne && !hasDestTwo){
             field[x][y].hasShip = true;
             hasDestTwo = true;
             makeToast("You have placed a destroyer.");
+            return true;
         }
         else if(destClicked && hasDestOne && hasDestTwo){
             makeToast("You cannot have any more destroyers.");
+            return false;
         }
         else if (!subClicked && !destClicked){
             makeToast("Choose a ship to place.");
+            return false;
         }
+        return false;
     }
 
     public boolean checkOverlap(int x, int y){
@@ -218,4 +236,6 @@ public class PlayerField extends AppCompatActivity {
         }
         return false;
     }
+
+
 }
