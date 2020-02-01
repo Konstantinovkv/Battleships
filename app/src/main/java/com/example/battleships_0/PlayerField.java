@@ -15,7 +15,8 @@ public class PlayerField extends AppCompatActivity {
     Cell[][] field = new Cell[3][3];
 
     boolean hasSub;
-    boolean hasDest;
+    boolean hasDestOne;
+    boolean hasDestTwo;
 
     boolean subClicked;
     boolean destclicked;
@@ -33,6 +34,7 @@ public class PlayerField extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 placeSub(0,0);
+                placeDestroyer(0,0);
             }
         });
 
@@ -40,6 +42,7 @@ public class PlayerField extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 placeSub(0,1);
+                placeDestroyer(0,1);
             }
         });
 
@@ -47,6 +50,7 @@ public class PlayerField extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 placeSub(0,2);
+                placeDestroyer(0,2);
             }
         });
 
@@ -54,6 +58,7 @@ public class PlayerField extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 placeSub(1,0);
+                placeDestroyer(1,0);
             }
         });
 
@@ -61,6 +66,7 @@ public class PlayerField extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 placeSub(1,1);
+                placeDestroyer(1,1);
             }
         });
 
@@ -68,6 +74,7 @@ public class PlayerField extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 placeSub(1,2);
+                placeDestroyer(1,2);
             }
         });
 
@@ -75,6 +82,7 @@ public class PlayerField extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 placeSub(2,0);
+                placeDestroyer(2,0);
             }
         });
 
@@ -82,6 +90,7 @@ public class PlayerField extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 placeSub(2,1);
+                placeDestroyer(2,1);
             }
         });
 
@@ -89,6 +98,7 @@ public class PlayerField extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 placeSub(2,2);
+                placeDestroyer(2,2);
             }
         });
 
@@ -162,6 +172,25 @@ public class PlayerField extends AppCompatActivity {
         }
         else if(subClicked && hasSub){
             makeToast("You cannot have any more submarines.");
+        }
+        else if (!subClicked && !destclicked){
+            makeToast("Choose a ship to place.");
+        }
+    }
+
+    public void placeDestroyer(int x, int y){
+        if (destclicked && !hasDestOne){
+            field[x][y].hasShip = true;
+            hasDestOne = true;
+            makeToast("You have placed a destroyer at coordinates "+x+" : "+y+".");
+        }
+        else if (destclicked && hasDestOne && !hasDestTwo){
+            field[x][y].hasShip = true;
+            hasDestTwo = true;
+            makeToast("You have placed a destroyer at coordinates "+x+" : "+y+".");
+        }
+        else if(destclicked && hasDestOne && hasDestTwo){
+            makeToast("You cannot have any more destroyers.");
         }
         else if (!subClicked && !destclicked){
             makeToast("Choose a ship to place.");
