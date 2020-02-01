@@ -74,7 +74,7 @@ public class Categories extends AppCompatActivity {
     }
 
     public void goToPlayerField(){
-        Intent intent = new Intent(this, Fields.class);
+        Intent intent = new Intent(this, PlayerField.class);
         startActivity(intent);
     }
 

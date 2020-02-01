@@ -9,7 +9,7 @@
     <Button
         android:id="@+id/cell_p_2"
         android:layout_width="100dp"
-        android:layout_height="0dp"
+        android:layout_height="100dp"
         android:layout_marginTop="266dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
@@ -21,11 +21,11 @@
     <Button
         android:id="@+id/cell_p_7"
         android:layout_width="100dp"
-        android:layout_height="0dp"
+        android:layout_height="100dp"
         android:layout_marginStart="240dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="694dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="70dp"
+        app:layout_constraintBottom_toTopOf="@+id/sub"
         app:layout_constraintEnd_toStartOf="@+id/cell_p_8"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cell_p_4" />
@@ -46,8 +46,8 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="694dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="70dp"
+        app:layout_constraintBottom_toTopOf="@+id/destroyer"
         app:layout_constraintEnd_toStartOf="@+id/cell_p_9"
         app:layout_constraintStart_toEndOf="@+id/cell_p_7"
         app:layout_constraintTop_toBottomOf="@+id/cell_p_5" />
@@ -80,7 +80,7 @@
     <Button
         android:id="@+id/cell_p_4"
         android:layout_width="100dp"
-        android:layout_height="0dp"
+        android:layout_height="100dp"
         android:layout_marginStart="240dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
@@ -105,8 +105,8 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginEnd="240dp"
-        android:layout_marginBottom="694dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="70dp"
+        app:layout_constraintBottom_toTopOf="@+id/destroyer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/cell_p_8"
         app:layout_constraintTop_toBottomOf="@+id/cell_p_6" />
@@ -114,31 +114,56 @@
     <Button
         android:id="@+id/sub"
         android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="70dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="240dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="574dp"
         android:text="Sub"
-        app:layout_constraintEnd_toEndOf="@+id/cell_p_7"
-        app:layout_constraintStart_toStartOf="@+id/cell_p_7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/destroyer"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cell_p_7" />
 
     <Button
         android:id="@+id/destroyer"
         android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="70dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="240dp"
+        android:layout_marginBottom="100dp"
         android:text="Destroyer"
-        app:layout_constraintEnd_toEndOf="@+id/cell_p_9"
-        app:layout_constraintStart_toStartOf="@+id/cell_p_8"
-        app:layout_constraintTop_toBottomOf="@+id/cell_p_9" />
+        app:layout_constraintBottom_toTopOf="@+id/random"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/sub"
+        app:layout_constraintTop_toBottomOf="@+id/cell_p_8" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/submit_ships"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:text="Button"
-        app:layout_constraintEnd_toEndOf="@+id/destroyer"
-        app:layout_constraintStart_toStartOf="@+id/sub"
-        tools:layout_editor_absoluteY="934dp" />
+        android:layout_marginBottom="278dp"
+        android:text="Submit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/random" />
+
+    <Button
+        android:id="@+id/random"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="100dp"
+        android:text="Random"
+        app:layout_constraintBottom_toTopOf="@+id/submit_ships"
+        app:layout_constraintStart_toStartOf="@+id/submit_ships"
+        app:layout_constraintTop_toBottomOf="@+id/destroyer" />
+
+    <Button
+        android:id="@+id/back_player_field"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="80dp"
+        android:text="Back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
