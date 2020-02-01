@@ -35,6 +35,8 @@ public class PlayerField extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.player_field);
 
+        makeToast("Choose a ship and place it on the field.");
+
         initializeField();
 
         initializeButtons();
