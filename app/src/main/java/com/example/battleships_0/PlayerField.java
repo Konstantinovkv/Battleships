@@ -10,16 +10,16 @@ import android.widget.Toast;
 
 public class PlayerField extends AppCompatActivity {
 
-    Button one, two, three, four, five, six, seven, eight, nine, back, random, sub, destroyer;
+    private Button one, two, three, four, five, six, seven, eight, nine, back, random, sub, destroyer;
 
-    Cell[][] field = new Cell[3][3];
+    private Cell[][] field = new Cell[3][3];
 
-    boolean hasSub;
-    boolean hasDestOne;
-    boolean hasDestTwo;
+    private boolean hasSub;
+    private boolean hasDestOne;
+    private boolean hasDestTwo;
 
-    boolean subClicked;
-    boolean destclicked;
+    private boolean subClicked;
+    private boolean destClicked;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +30,37 @@ public class PlayerField extends AppCompatActivity {
 
         initializeButtons();
 
+        fieldClicker();
+
+        shipClicker();
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                backToMain();
+            }
+        });
+    }
+
+    private void shipClicker(){
+        sub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                subClicked = true;
+                destClicked = false;
+            }
+        });
+
+        destroyer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                destClicked = true;
+                subClicked = false;
+            }
+        });
+    }
+
+    private void fieldClicker(){
         one.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,37 +132,14 @@ public class PlayerField extends AppCompatActivity {
                 placeDestroyer(2,2);
             }
         });
-
-        sub.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                subClicked = true;
-                destclicked = false;
-            }
-        });
-
-        destroyer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                destclicked = true;
-                subClicked = false;
-            }
-        });
-
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                backToMain();
-            }
-        });
     }
 
-    public void backToMain(){
+    private void backToMain(){
         Intent intent = new Intent(this, Categories.class);
         startActivity(intent);
     }
 
-    public void initializeButtons(){
+    private void initializeButtons(){
         one = findViewById(R.id.cell_p_1);
         two = findViewById(R.id.cell_p_2);
         three = findViewById(R.id.cell_p_3);
@@ -150,7 +158,7 @@ public class PlayerField extends AppCompatActivity {
         destroyer = findViewById(R.id.destroyer);
     }
 
-    public void initializeField(){
+    private void initializeField(){
         int counter = 0;
 
         for (int i = 0; i < 3; i++) {
@@ -160,40 +168,54 @@ public class PlayerField extends AppCompatActivity {
         }
     }
 
-    public void makeToast(String text){
+    private void makeToast(String text){
         Toast.makeText(getApplicationContext(),text, Toast.LENGTH_SHORT).show();
     }
 
-    public void placeSub(int x, int y){
+    private void placeSub(int x, int y){
+        if (checkOverlap(x,y)){
+            return;
+        }
         if (subClicked && !hasSub){
             field[x][y].hasShip = true;
             hasSub = true;
-            makeToast("You have placed a sub at coordinates "+x+" : "+y+".");
+            makeToast("You have placed a sub.");
         }
         else if(subClicked && hasSub){
             makeToast("You cannot have any more submarines.");
         }
-        else if (!subClicked && !destclicked){
+        else if (!subClicked && !destClicked){
             makeToast("Choose a ship to place.");
         }
     }
 
-    public void placeDestroyer(int x, int y){
-        if (destclicked && !hasDestOne){
+    private void placeDestroyer(int x, int y){
+        if (checkOverlap(x,y)){
+            return;
+        }
+        if (destClicked && !hasDestOne){
             field[x][y].hasShip = true;
             hasDestOne = true;
-            makeToast("You have placed a destroyer at coordinates "+x+" : "+y+".");
+            makeToast("Choose next coordinate for your destroyer");
         }
-        else if (destclicked && hasDestOne && !hasDestTwo){
+        else if (destClicked && hasDestOne && !hasDestTwo){
             field[x][y].hasShip = true;
             hasDestTwo = true;
-            makeToast("You have placed a destroyer at coordinates "+x+" : "+y+".");
+            makeToast("You have placed a destroyer.");
         }
-        else if(destclicked && hasDestOne && hasDestTwo){
+        else if(destClicked && hasDestOne && hasDestTwo){
             makeToast("You cannot have any more destroyers.");
         }
-        else if (!subClicked && !destclicked){
+        else if (!subClicked && !destClicked){
             makeToast("Choose a ship to place.");
         }
+    }
+
+    public boolean checkOverlap(int x, int y){
+        if (field[x][y].hasShip){
+            makeToast("Ships cannot overlap.");
+            return true;
+        }
+        return false;
     }
 }
