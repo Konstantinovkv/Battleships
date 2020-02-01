@@ -1,22 +1,25 @@
 package com.example.battleships_0;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class PlayerField extends AppCompatActivity {
+
+    private Random randomNum = new Random();
 
     private Button one, two, three, four, five, six, seven, eight, nine, back, random, sub, destroyer;
 
     private Cell[][] field = new Cell[3][3];
+
+    private boolean randomized;
 
     private boolean hasSub;
     private boolean hasDestOne;
@@ -48,6 +51,13 @@ public class PlayerField extends AppCompatActivity {
                 backToMain();
             }
         });
+
+        random.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                randomize();
+            }
+        });
     }
 
     private void shipClicker(){
@@ -56,6 +66,7 @@ public class PlayerField extends AppCompatActivity {
             public void onClick(View v) {
                 subClicked = true;
                 destClicked = false;
+                checkRandomized();
             }
         });
 
@@ -64,8 +75,25 @@ public class PlayerField extends AppCompatActivity {
             public void onClick(View v) {
                 destClicked = true;
                 subClicked = false;
+                checkRandomized();
             }
         });
+    }
+
+    private void checkRandomized(){
+        if (randomized){
+            buttonColourSetter();
+            possibleButtons.clear();
+            for (int i = 0; i < field.length; i++) {
+                for (int j = 0; j < field[i].length; j++) {
+                    field[i][j].hasShip = false;
+                }
+            }
+            hasSub = false;
+            hasDestOne = false;
+            hasDestTwo = false;
+            randomized = false;
+        }
     }
 
     private void fieldClicker(){
@@ -218,7 +246,7 @@ public class PlayerField extends AppCompatActivity {
             field[x][y].hasShip = true;
             hasDestOne = true;
             positionChecker(x,y);
-            destPossibilities();
+            coloring(179, 218, 241);
             makeToast("Choose second coordinate from the highlight");
             return true;
         }
@@ -284,45 +312,6 @@ public class PlayerField extends AppCompatActivity {
         }
     }
 
-    private void destPossibilities(){
-        int x;
-        int y;
-
-        for (int i = 0; i < possibleButtons.size(); i++) {
-            x = possibleButtons.get(i).x;
-            y = possibleButtons.get(i).y;
-            switch (x){
-                case 0: switch (y){
-                    case 0: one.setBackgroundColor(Color.rgb(179, 218, 241));
-                        break;
-                    case 1: two.setBackgroundColor(Color.rgb(179, 218, 241));
-                        break;
-                    case 2: three.setBackgroundColor(Color.rgb(179, 218, 241));
-                        break;
-                }
-                    break;
-                case 1: switch (y){
-                    case 0: four.setBackgroundColor(Color.rgb(179, 218, 241));
-                        break;
-                    case 1: five.setBackgroundColor(Color.rgb(179, 218, 241));
-                        break;
-                    case 2: six.setBackgroundColor(Color.rgb(179, 218, 241));
-                        break;
-                }
-                    break;
-                case 2: switch (y){
-                    case 0: seven.setBackgroundColor(Color.rgb(179, 218, 241));
-                        break;
-                    case 1: eight.setBackgroundColor(Color.rgb(179, 218, 241));
-                        break;
-                    case 2: nine.setBackgroundColor(Color.rgb(179, 218, 241));
-                        break;
-                }
-                    break;
-            }
-        }
-    }
-
     private void destPossibilitiesRevert(){
         int x;
         int y;
@@ -375,4 +364,88 @@ public class PlayerField extends AppCompatActivity {
 
     }
 
+    private void randomize(){
+        randomized = true;
+        buttonColourSetter();
+        possibleButtons.clear();
+        for (int i = 0; i < field.length; i++) {
+            for (int j = 0; j < field[i].length; j++) {
+                field[i][j].hasShip = false;
+            }
+        }
+        int x = randomNum.nextInt(3);
+        int y = randomNum.nextInt(3);
+        field[x][y].hasShip = true;
+        possibleButtons.add(new Point(x,y));
+        placeSecondShip();
+    }
+
+    private boolean placeSecondShip(){
+        int x = randomNum.nextInt(3);
+        int y = randomNum.nextInt(3);
+        if (!field[x][y].hasShip) {
+            field[x][y].hasShip = true;
+            possibleButtons.add(new Point(x,y));
+        }
+        else{
+            return placeSecondShip();
+        }
+        if (x + 1 <= 2 && !field[x+1][y].hasShip){
+            field[x+1][y].hasShip = true;
+            possibleButtons.add(new Point(x+1,y));
+        }
+        else if (x - 1 >= 0 && !field[x-1][y].hasShip){
+            field[x-1][y].hasShip = true;
+            possibleButtons.add(new Point(x-1,y));
+        }
+        else if (y + 1 <= 2 && !field[x][y+1].hasShip){
+            field[x][y+1].hasShip = true;
+            possibleButtons.add(new Point(x,y+1));
+        }
+        else if (y - 1 >= 0 && !field[x][y-1].hasShip){
+            field[x][y-1].hasShip = true;
+            possibleButtons.add(new Point(x,y-1));
+        }
+        coloring(66,104,124);
+        return false;
+    }
+
+    private void coloring(int r, int g, int b){
+        int x;
+        int y;
+
+        for (int i = 0; i < possibleButtons.size(); i++) {
+            x = possibleButtons.get(i).x;
+            y = possibleButtons.get(i).y;
+            switch (x){
+                case 0: switch (y){
+                    case 0: one.setBackgroundColor(Color.rgb(r, g, b));
+                        break;
+                    case 1: two.setBackgroundColor(Color.rgb(r, g, b));
+                        break;
+                    case 2: three.setBackgroundColor(Color.rgb(r, g, b));
+                        break;
+                }
+                    break;
+                case 1: switch (y){
+                    case 0: four.setBackgroundColor(Color.rgb(r, g, b));
+                        break;
+                    case 1: five.setBackgroundColor(Color.rgb(r, g, b));
+                        break;
+                    case 2: six.setBackgroundColor(Color.rgb(r, g, b));
+                        break;
+                }
+                    break;
+                case 2: switch (y){
+                    case 0: seven.setBackgroundColor(Color.rgb(r, g, b));
+                        break;
+                    case 1: eight.setBackgroundColor(Color.rgb(r, g, b));
+                        break;
+                    case 2: nine.setBackgroundColor(Color.rgb(r, g, b));
+                        break;
+                }
+                    break;
+            }
+        }
+    }
 }
