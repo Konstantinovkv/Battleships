@@ -3,10 +3,14 @@ package com.example.battleships_0;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PlayerField extends AppCompatActivity {
 
@@ -21,6 +25,8 @@ public class PlayerField extends AppCompatActivity {
     private boolean subClicked;
     private boolean destClicked;
 
+    private List<Point> possibleButtons = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +35,8 @@ public class PlayerField extends AppCompatActivity {
         initializeField();
 
         initializeButtons();
+
+        buttonColourSetter();
 
         fieldClicker();
 
@@ -65,7 +73,7 @@ public class PlayerField extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (placeSub(0,0) || placeDestroyer(0,0)){
-                    one.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                    one.setBackgroundColor(Color.rgb(66, 104, 124));
                 }
             }
         });
@@ -74,7 +82,7 @@ public class PlayerField extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (placeSub(0,1) || placeDestroyer(0,1)){
-                    two.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                    two.setBackgroundColor(Color.rgb(66, 104, 124));
                 }
             }
         });
@@ -83,7 +91,7 @@ public class PlayerField extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (placeSub(0,2) || placeDestroyer(0,2)){
-                    three.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                    three.setBackgroundColor(Color.rgb(66, 104, 124));
                 }
             }
         });
@@ -92,7 +100,7 @@ public class PlayerField extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (placeSub(1,0) || placeDestroyer(1,0)){
-                    four.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                    four.setBackgroundColor(Color.rgb(66, 104, 124));
                 }
             }
         });
@@ -101,7 +109,7 @@ public class PlayerField extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (placeSub(1,1) || placeDestroyer(1,1)){
-                    five.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                    five.setBackgroundColor(Color.rgb(66, 104, 124));
                 }
             }
         });
@@ -110,7 +118,7 @@ public class PlayerField extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (placeSub(1,2) || placeDestroyer(1,2)){
-                    six.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                    six.setBackgroundColor(Color.rgb(66, 104, 124));
                 }
             }
         });
@@ -119,7 +127,7 @@ public class PlayerField extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (placeSub(2,0) || placeDestroyer(2,0)){
-                    seven.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                    seven.setBackgroundColor(Color.rgb(66, 104, 124));
                 }
             }
         });
@@ -128,7 +136,7 @@ public class PlayerField extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (placeSub(2,1) || placeDestroyer(2,1)){
-                    eight.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                    eight.setBackgroundColor(Color.rgb(66, 104, 124));
                 }
             }
         });
@@ -137,7 +145,7 @@ public class PlayerField extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (placeSub(2,2) || placeDestroyer(2,2)){
-                    nine.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                    nine.setBackgroundColor(Color.rgb(66, 104, 124));
                 }
             }
         });
@@ -185,7 +193,7 @@ public class PlayerField extends AppCompatActivity {
         if (checkOverlap(x,y)){
             return false;
         }
-        if (subClicked && !hasSub){
+        else if (subClicked && !hasSub){
             field[x][y].hasShip = true;
             hasSub = true;
             makeToast("You have placed a sub.");
@@ -206,13 +214,19 @@ public class PlayerField extends AppCompatActivity {
         if (checkOverlap(x,y)){
             return false;
         }
-        if (destClicked && !hasDestOne){
+        else if (destClicked && !hasDestOne){
             field[x][y].hasShip = true;
             hasDestOne = true;
-            makeToast("Choose next coordinate for your destroyer");
+            positionChecker(x,y);
+            destPossibilities();
+            makeToast("Choose second coordinate from the highlight");
             return true;
         }
         else if (destClicked && hasDestOne && !hasDestTwo){
+            if(!checkPositionValidity(x,y)){
+                return false;
+            }
+            destPossibilitiesRevert();
             field[x][y].hasShip = true;
             hasDestTwo = true;
             makeToast("You have placed a destroyer.");
@@ -229,7 +243,7 @@ public class PlayerField extends AppCompatActivity {
         return false;
     }
 
-    public boolean checkOverlap(int x, int y){
+    private boolean checkOverlap(int x, int y){
         if (field[x][y].hasShip){
             makeToast("Ships cannot overlap.");
             return true;
@@ -237,5 +251,128 @@ public class PlayerField extends AppCompatActivity {
         return false;
     }
 
+    private boolean checkPositionValidity(int x, int y){
+        for (int i = 0; i < possibleButtons.size(); i++) {
+            if (possibleButtons.get(i).x == x && possibleButtons.get(i).y == y){
+                return true;
+            }
+        }
+        makeToast("Ships cannot be placed diagonally.");
+        return false;
+    }
+
+    private void positionChecker(int x, int y){
+        if (x+1<=2) {
+            if (!field[x+1][y].hasShip) {
+                possibleButtons.add(new Point(x + 1, y));
+            }
+        }
+        if (x-1>=0) {
+            if (!field[x-1][y].hasShip) {
+                possibleButtons.add(new Point(x - 1, y));
+            }
+        }
+        if (y+1<=2) {
+            if (!field[x][y+1].hasShip) {
+                possibleButtons.add(new Point(x, y + 1));
+            }
+        }
+        if (y-1>=0) {
+            if (!field[x][y-1].hasShip) {
+                possibleButtons.add(new Point(x, y - 1));
+            }
+        }
+    }
+
+    private void destPossibilities(){
+        int x;
+        int y;
+
+        for (int i = 0; i < possibleButtons.size(); i++) {
+            x = possibleButtons.get(i).x;
+            y = possibleButtons.get(i).y;
+            switch (x){
+                case 0: switch (y){
+                    case 0: one.setBackgroundColor(Color.rgb(179, 218, 241));
+                        break;
+                    case 1: two.setBackgroundColor(Color.rgb(179, 218, 241));
+                        break;
+                    case 2: three.setBackgroundColor(Color.rgb(179, 218, 241));
+                        break;
+                }
+                    break;
+                case 1: switch (y){
+                    case 0: four.setBackgroundColor(Color.rgb(179, 218, 241));
+                        break;
+                    case 1: five.setBackgroundColor(Color.rgb(179, 218, 241));
+                        break;
+                    case 2: six.setBackgroundColor(Color.rgb(179, 218, 241));
+                        break;
+                }
+                    break;
+                case 2: switch (y){
+                    case 0: seven.setBackgroundColor(Color.rgb(179, 218, 241));
+                        break;
+                    case 1: eight.setBackgroundColor(Color.rgb(179, 218, 241));
+                        break;
+                    case 2: nine.setBackgroundColor(Color.rgb(179, 218, 241));
+                        break;
+                }
+                    break;
+            }
+        }
+    }
+
+    private void destPossibilitiesRevert(){
+        int x;
+        int y;
+
+        for (int i = 0; i < possibleButtons.size(); i++) {
+            x = possibleButtons.get(i).x;
+            y = possibleButtons.get(i).y;
+            switch (x){
+                case 0: switch (y){
+                    case 0: one.setBackgroundColor(Color.rgb(51,171,249));
+                        break;
+                    case 1: two.setBackgroundColor(Color.rgb(51,171,249));
+                        break;
+                    case 2: three.setBackgroundColor(Color.rgb(51,171,249));
+                        break;
+                }
+                    break;
+                case 1: switch (y){
+                    case 0: four.setBackgroundColor(Color.rgb(51,171,249));
+                        break;
+                    case 1: five.setBackgroundColor(Color.rgb(51,171,249));
+                        break;
+                    case 2: six.setBackgroundColor(Color.rgb(51,171,249));
+                        break;
+                }
+                    break;
+                case 2: switch (y){
+                    case 0: seven.setBackgroundColor(Color.rgb(51,171,249));
+                        break;
+                    case 1: eight.setBackgroundColor(Color.rgb(51,171,249));
+                        break;
+                    case 2: nine.setBackgroundColor(Color.rgb(51,171,249));
+                        break;
+                }
+                    break;
+            }
+        }
+    }
+
+    private void buttonColourSetter(){
+        one.setBackgroundColor(Color.rgb(51,171,249));
+        two.setBackgroundColor(Color.rgb(51,171,249));
+        three.setBackgroundColor(Color.rgb(51,171,249));
+        four.setBackgroundColor(Color.rgb(51,171,249));
+        five.setBackgroundColor(Color.rgb(51,171,249));
+        six.setBackgroundColor(Color.rgb(51,171,249));
+        seven.setBackgroundColor(Color.rgb(51,171,249));
+        eight.setBackgroundColor(Color.rgb(51,171,249));
+        nine.setBackgroundColor(Color.rgb(51,171,249));
+
+    }
 
 }
