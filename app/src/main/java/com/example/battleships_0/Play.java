@@ -9,7 +9,7 @@ import android.widget.Button;
 
 public class Play extends AppCompatActivity {
 
-    Button play;
+    Button play, login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,11 +17,20 @@ public class Play extends AppCompatActivity {
         setContentView(R.layout.play);
 
         play = findViewById(R.id.play);
+        login = findViewById(R.id.login_front);
 
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goToCategories();
+
+            }
+        });
+
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToAdminLogin();
 
             }
         });

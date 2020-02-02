@@ -74,4 +74,14 @@
         app:layout_constraintStart_toStartOf="@+id/category_1"
         app:layout_constraintTop_toBottomOf="@+id/category_1" />
 
+    <Button
+        android:id="@+id/back_categories"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="75dp"
+        android:layout_height="71dp"
+        android:layout_marginBottom="80dp"
+        android:background="@drawable/left_arrow2_png"
+        app:layout_constraintBottom_toTopOf="@+id/category_1"
+        app:layout_constraintStart_toStartOf="@+id/category_1" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

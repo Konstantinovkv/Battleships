@@ -9,7 +9,7 @@ import android.widget.ImageButton;
 
 public class Categories extends AppCompatActivity {
 
-    Button dev, devops, qa, ba, delivery;
+    Button dev, devops, qa, ba, delivery, back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +21,7 @@ public class Categories extends AppCompatActivity {
         qa = findViewById(R.id.category_3);
         ba = findViewById(R.id.category_4);
         delivery = findViewById(R.id.category_5);
+        back = findViewById(R.id.back_categories);
 
         dev.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,10 +63,22 @@ public class Categories extends AppCompatActivity {
                 goToPlayerField();
             }
         });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToFront();
+            }
+        });
     }
 
     public void goToPlayerField(){
         Intent intent = new Intent(this, PlayerField.class);
+        startActivity(intent);
+    }
+
+    public void goToFront(){
+        Intent intent = new Intent(this, Play.class);
         startActivity(intent);
     }
 }
