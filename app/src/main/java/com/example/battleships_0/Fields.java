@@ -13,12 +13,15 @@ import java.util.Random;
 public class Fields extends AppCompatActivity {
 
     int numberOfTurns;
-    int bullets;
+    int bullets = 1;
     int finalScore;
     private Random randomNum = new Random();
 
     private Cell[][] playerField;
     private Cell[][] computerField = new Cell[3][3];
+
+    private Button[][] computerButtons;
+    private Button[][] playerButtons;
 
     private Button one, two, three, four, five, six, seven, eight, nine,
             back,
@@ -31,13 +34,17 @@ public class Fields extends AppCompatActivity {
 
         initializeButtons();
 
+        makePcArr();
+        makePlayerArr();
+
         buttonColourSetter();
 
         playerField = ApplicationContext.getContext().getPlayerField();
 
         playerShipMarker();
 
-        placeComputerShips();
+        placeFirstShip();
+        placeSecondShip();
 
         pcFieldOnClicker();
 
@@ -53,62 +60,81 @@ public class Fields extends AppCompatActivity {
         pcOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (shootAtComputer(0,0)){
+                    pcOne.setBackgroundColor(Color.RED);
+                }
             }
         });
 
         pcTwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (shootAtComputer(0,1)){
+                    pcTwo.setBackgroundColor(Color.RED);
+                }
             }
         });
 
         pcThree.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (shootAtComputer(0,2)){
+                    pcThree.setBackgroundColor(Color.RED);
+                }
             }
         });
 
         pcFour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (shootAtComputer(1,0)){
+                    pcFour.setBackgroundColor(Color.RED);
+                }
             }
         });
 
         pcFive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (shootAtComputer(1,1)){
+                    pcFive.setBackgroundColor(Color.RED);
+                }
             }
         });
 
         pcSix.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (shootAtComputer(1,2)){
+                    pcSix.setBackgroundColor(Color.RED);
+                }
             }
         });
 
         pcSeven.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (shootAtComputer(2,0)){
+                    pcSeven.setBackgroundColor(Color.RED);
+                }
             }
         });
 
         pcEight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (shootAtComputer(2,1)){
+                    pcEight.setBackgroundColor(Color.RED);
+                }
             }
         });
 
         pcNine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (shootAtComputer(2,2)){
+                    pcNine.setBackgroundColor(Color.RED);
+                }
             }
         });
     }
@@ -152,56 +178,22 @@ public class Fields extends AppCompatActivity {
     }
 
     private void playerShipMarker(){
-        int counter = 1;
         for (int i = 0; i < playerField.length; i++) {
             for (int j = 0; j <playerField[i].length ; j++) {
                 if (playerField[i][j].hasShip){
-                    switch (counter){
-                        case 1: one.setBackgroundColor(Color.rgb(98, 34, 121));
-                            break;
-                        case 2: two.setBackgroundColor(Color.rgb(98, 34, 121));
-                            break;
-                        case 3: three.setBackgroundColor(Color.rgb(98, 34, 121));
-                            break;
-                        case 4: four.setBackgroundColor(Color.rgb(98, 34, 121));
-                            break;
-                        case 5: five.setBackgroundColor(Color.rgb(98, 34, 121));
-                            break;
-                        case 6: six.setBackgroundColor(Color.rgb(98, 34, 121));
-                            break;
-                        case 7: seven.setBackgroundColor(Color.rgb(98, 34, 121));
-                            break;
-                        case 8: eight.setBackgroundColor(Color.rgb(98, 34, 121));
-                            break;
-                        case 9: nine.setBackgroundColor(Color.rgb(98, 34, 121));
-                            break;
-                    }
+                    playerButtons[i][j].setBackgroundColor(Color.rgb(98, 34, 121));
                 }
-                counter++;
             }
         }
     }
 
     private void buttonColourSetter(){
-        one.setBackgroundColor(Color.rgb(61,108,180));
-        two.setBackgroundColor(Color.rgb(61,108,180));
-        three.setBackgroundColor(Color.rgb(61,108,180));
-        four.setBackgroundColor(Color.rgb(61,108,180));
-        five.setBackgroundColor(Color.rgb(61,108,180));
-        six.setBackgroundColor(Color.rgb(61,108,180));
-        seven.setBackgroundColor(Color.rgb(61,108,180));
-        eight.setBackgroundColor(Color.rgb(61,108,180));
-        nine.setBackgroundColor(Color.rgb(61,108,180));
-
-        pcOne.setBackgroundColor(Color.rgb(61,108,180));
-        pcTwo.setBackgroundColor(Color.rgb(61,108,180));
-        pcThree.setBackgroundColor(Color.rgb(61,108,180));
-        pcFour.setBackgroundColor(Color.rgb(61,108,180));
-        pcFive.setBackgroundColor(Color.rgb(61,108,180));
-        pcSix.setBackgroundColor(Color.rgb(61,108,180));
-        pcSeven.setBackgroundColor(Color.rgb(61,108,180));
-        pcEight.setBackgroundColor(Color.rgb(61,108,180));
-        pcNine.setBackgroundColor(Color.rgb(61,108,180));
+        for (int i = 0; i < computerField.length; i++) {
+            for (int j = 0; j < computerField[i].length; j++) {
+                computerButtons[i][j].setBackgroundColor(Color.rgb(61,108,180));
+                playerButtons[i][j].setBackgroundColor(Color.rgb(61,108,180));
+            }
+        }
     }
 
     private void populateComputerField(){
@@ -213,12 +205,11 @@ public class Fields extends AppCompatActivity {
         }
     }
 
-    private void placeComputerShips(){
+    private void placeFirstShip(){
         populateComputerField();
         int x = randomNum.nextInt(3);
         int y = randomNum.nextInt(3);
         computerField[x][y].hasShip = true;
-        placeSecondShip();
     }
 
     private boolean placeSecondShip(){
@@ -243,6 +234,41 @@ public class Fields extends AppCompatActivity {
             computerField[x][y-1].hasShip = true;
         }
         return false;
+    }
+
+    private void shootAtPlayer(){
+        int x = randomNum.nextInt(3);
+        int y = randomNum.nextInt(3);
+        if (playerField[x][y].isHit){
+            shootAtPlayer();
+        }
+        if (playerField[x][y].hasShip) {
+            computerButtons[x][y].setBackgroundColor(Color.RED);
+        }
+    }
+
+    private boolean shootAtComputer(int x, int y){
+        computerField[x][y].isHit = true;
+        if(computerField[x][y].hasShip){
+            return true;
+        }
+        return false;
+    }
+
+    private void makePcArr(){
+        computerButtons = new Button[][]{
+                {pcOne, pcTwo, pcThree},
+                {pcFour, pcFive, pcSix},
+                {pcSeven, pcEight, pcNine}
+        };
+    }
+
+    private void makePlayerArr(){
+        playerButtons = new Button[][]{
+                {one, two, three},
+                {four, five, six},
+                {seven, eight, nine}
+        };
     }
 
 }

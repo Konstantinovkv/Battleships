@@ -18,6 +18,8 @@ public class PlayerField extends AppCompatActivity {
 
     private Button one, two, three, four, five, six, seven, eight, nine, back, random, sub, destroyer, submit;
 
+    private Button[][] playerButtons;
+
     private Cell[][] field = new Cell[3][3];
 
     private boolean randomized;
@@ -41,6 +43,8 @@ public class PlayerField extends AppCompatActivity {
         initializeField();
 
         initializeButtons();
+
+        makePlayerArr();
 
         buttonColourSetter();
 
@@ -227,7 +231,6 @@ public class PlayerField extends AppCompatActivity {
 
     private void initializeField(){
         int counter = 0;
-
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 field[i][j] = new Cell(counter++);
@@ -340,53 +343,19 @@ public class PlayerField extends AppCompatActivity {
     private void destPossibilitiesRevert(){
         int x;
         int y;
-
         for (int i = 0; i < possibleButtons.size(); i++) {
             x = possibleButtons.get(i).x;
             y = possibleButtons.get(i).y;
-            switch (x){
-                case 0: switch (y){
-                    case 0: one.setBackgroundColor(Color.rgb(61,108,180));
-                        break;
-                    case 1: two.setBackgroundColor(Color.rgb(61,108,180));
-                        break;
-                    case 2: three.setBackgroundColor(Color.rgb(61,108,180));
-                        break;
-                }
-                    break;
-                case 1: switch (y){
-                    case 0: four.setBackgroundColor(Color.rgb(61,108,180));
-                        break;
-                    case 1: five.setBackgroundColor(Color.rgb(61,108,180));
-                        break;
-                    case 2: six.setBackgroundColor(Color.rgb(61,108,180));
-                        break;
-                }
-                    break;
-                case 2: switch (y){
-                    case 0: seven.setBackgroundColor(Color.rgb(61,108,180));
-                        break;
-                    case 1: eight.setBackgroundColor(Color.rgb(61,108,180));
-                        break;
-                    case 2: nine.setBackgroundColor(Color.rgb(61,108,180));
-                        break;
-                }
-                    break;
-            }
+            playerButtons[x][y].setBackgroundColor(Color.rgb(61,108,180));
         }
     }
 
     private void buttonColourSetter(){
-        one.setBackgroundColor(Color.rgb(61,108,180));
-        two.setBackgroundColor(Color.rgb(61,108,180));
-        three.setBackgroundColor(Color.rgb(61,108,180));
-        four.setBackgroundColor(Color.rgb(61,108,180));
-        five.setBackgroundColor(Color.rgb(61,108,180));
-        six.setBackgroundColor(Color.rgb(61,108,180));
-        seven.setBackgroundColor(Color.rgb(61,108,180));
-        eight.setBackgroundColor(Color.rgb(61,108,180));
-        nine.setBackgroundColor(Color.rgb(61,108,180));
-
+        for (int i = 0; i < playerButtons.length; i++) {
+            for (int j = 0; j < playerButtons[i].length; j++) {
+                playerButtons[i][j].setBackgroundColor(Color.rgb(61,108,180));
+            }
+        }
     }
 
     private void randomize(){
@@ -443,39 +412,18 @@ public class PlayerField extends AppCompatActivity {
     private void coloring(int r, int g, int b){
         int x;
         int y;
-
         for (int i = 0; i < possibleButtons.size(); i++) {
             x = possibleButtons.get(i).x;
             y = possibleButtons.get(i).y;
-            switch (x){
-                case 0: switch (y){
-                    case 0: one.setBackgroundColor(Color.rgb(r, g, b));
-                        break;
-                    case 1: two.setBackgroundColor(Color.rgb(r, g, b));
-                        break;
-                    case 2: three.setBackgroundColor(Color.rgb(r, g, b));
-                        break;
-                }
-                    break;
-                case 1: switch (y){
-                    case 0: four.setBackgroundColor(Color.rgb(r, g, b));
-                        break;
-                    case 1: five.setBackgroundColor(Color.rgb(r, g, b));
-                        break;
-                    case 2: six.setBackgroundColor(Color.rgb(r, g, b));
-                        break;
-                }
-                    break;
-                case 2: switch (y){
-                    case 0: seven.setBackgroundColor(Color.rgb(r, g, b));
-                        break;
-                    case 1: eight.setBackgroundColor(Color.rgb(r, g, b));
-                        break;
-                    case 2: nine.setBackgroundColor(Color.rgb(r, g, b));
-                        break;
-                }
-                    break;
-            }
+            playerButtons[x][y].setBackgroundColor(Color.rgb(r, g, b));
         }
+    }
+
+    private void makePlayerArr(){
+        playerButtons = new Button[][]{
+                {one, two, three},
+                {four, five, six},
+                {seven, eight, nine}
+        };
     }
 }
