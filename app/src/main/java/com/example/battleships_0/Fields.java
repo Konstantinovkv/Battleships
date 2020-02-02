@@ -8,14 +8,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 import com.example.battleships_0.context.ApplicationContext;
+import java.util.Random;
 
 public class Fields extends AppCompatActivity {
+
+    int numberOfTurns;
+    int bullets;
+    int finalScore;
+    private Random randomNum = new Random();
+
+    private Cell[][] playerField;
+    private Cell[][] computerField = new Cell[3][3];
 
     private Button one, two, three, four, five, six, seven, eight, nine,
             back,
             pcOne, pcTwo, pcThree, pcFour, pcFive, pcSix, pcSeven, pcEight, pcNine;
-
-    private Cell[][] playerField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +36,8 @@ public class Fields extends AppCompatActivity {
         playerField = ApplicationContext.getContext().getPlayerField();
 
         playerShipMarker();
+
+        placeComputerShips();
 
         pcFieldOnClicker();
 
@@ -194,6 +203,48 @@ public class Fields extends AppCompatActivity {
         pcEight.setBackgroundColor(Color.rgb(61,108,180));
         pcNine.setBackgroundColor(Color.rgb(61,108,180));
     }
+
+    private void populateComputerField(){
+        int counter = 1;
+        for (int i = 0; i < computerField.length; i++) {
+            for (int j = 0; j < computerField[i].length; j++) {
+                computerField[i][j] = new Cell(counter++);
+            }
+        }
+    }
+
+    private void placeComputerShips(){
+        populateComputerField();
+        int x = randomNum.nextInt(3);
+        int y = randomNum.nextInt(3);
+        computerField[x][y].hasShip = true;
+        placeSecondShip();
+    }
+
+    private boolean placeSecondShip(){
+        int x = randomNum.nextInt(3);
+        int y = randomNum.nextInt(3);
+        if (!computerField[x][y].hasShip) {
+            computerField[x][y].hasShip = true;
+        }
+        else{
+            return placeSecondShip();
+        }
+        if (x + 1 <= 2 && !computerField[x+1][y].hasShip){
+            computerField[x+1][y].hasShip = true;
+        }
+        else if (x - 1 >= 0 && !computerField[x-1][y].hasShip){
+            computerField[x-1][y].hasShip = true;
+        }
+        else if (y + 1 <= 2 && !computerField[x][y+1].hasShip){
+            computerField[x][y+1].hasShip = true;
+        }
+        else if (y - 1 >= 0 && !computerField[x][y-1].hasShip){
+            computerField[x][y-1].hasShip = true;
+        }
+        return false;
+    }
+
 }
 
 

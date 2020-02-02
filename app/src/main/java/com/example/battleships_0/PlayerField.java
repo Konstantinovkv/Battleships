@@ -7,9 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
 import com.example.battleships_0.context.ApplicationContext;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -30,9 +28,6 @@ public class PlayerField extends AppCompatActivity {
 
     private boolean subClicked;
     private boolean destClicked;
-
-    private int finalScore;
-    private int numberOfTurns;
 
     private List<Point> possibleButtons = new ArrayList<>();
 
