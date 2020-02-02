@@ -72,7 +72,7 @@ public class Fields extends AppCompatActivity {
                     pcOne.setBackgroundColor(Color.RED);
                 }
                 else{
-                    pcOne.setBackgroundColor(Color.GREEN);
+                    pcOne.setBackgroundColor(Color.rgb(189, 41, 127));
                 }
                 shootAtPlayer();
             }
@@ -88,7 +88,7 @@ public class Fields extends AppCompatActivity {
                     pcTwo.setBackgroundColor(Color.RED);
                 }
                 else{
-                    pcTwo.setBackgroundColor(Color.GREEN);
+                    pcTwo.setBackgroundColor(Color.rgb(189, 41, 127));
                 }
                 shootAtPlayer();
             }
@@ -104,7 +104,7 @@ public class Fields extends AppCompatActivity {
                     pcThree.setBackgroundColor(Color.RED);
                 }
                 else{
-                    pcThree.setBackgroundColor(Color.GREEN);
+                    pcThree.setBackgroundColor(Color.rgb(189, 41, 127));
                 }
                 shootAtPlayer();
             }
@@ -120,7 +120,7 @@ public class Fields extends AppCompatActivity {
                     pcFour.setBackgroundColor(Color.RED);
                 }
                 else{
-                    pcFour.setBackgroundColor(Color.GREEN);
+                    pcFour.setBackgroundColor(Color.rgb(189, 41, 127));
                 }
                 shootAtPlayer();
             }
@@ -136,7 +136,7 @@ public class Fields extends AppCompatActivity {
                     pcFive.setBackgroundColor(Color.RED);
                 }
                 else{
-                    pcFive.setBackgroundColor(Color.GREEN);
+                    pcFive.setBackgroundColor(Color.rgb(189, 41, 127));
                 }
                 shootAtPlayer();
             }
@@ -152,7 +152,7 @@ public class Fields extends AppCompatActivity {
                     pcSix.setBackgroundColor(Color.RED);
                 }
                 else{
-                    pcSix.setBackgroundColor(Color.GREEN);
+                    pcSix.setBackgroundColor(Color.rgb(189, 41, 127));
                 }
                 shootAtPlayer();
             }
@@ -168,7 +168,7 @@ public class Fields extends AppCompatActivity {
                     pcSeven.setBackgroundColor(Color.RED);
                 }
                 else{
-                    pcSeven.setBackgroundColor(Color.GREEN);
+                    pcSeven.setBackgroundColor(Color.rgb(189, 41, 127));
                 }
                 shootAtPlayer();
             }
@@ -184,7 +184,7 @@ public class Fields extends AppCompatActivity {
                     pcEight.setBackgroundColor(Color.RED);
                 }
                 else{
-                    pcEight.setBackgroundColor(Color.GREEN);
+                    pcEight.setBackgroundColor(Color.rgb(189, 41, 127));
                 }
                 shootAtPlayer();
             }
@@ -200,7 +200,7 @@ public class Fields extends AppCompatActivity {
                     pcNine.setBackgroundColor(Color.RED);
                 }
                 else{
-                    pcNine.setBackgroundColor(Color.GREEN);
+                    pcNine.setBackgroundColor(Color.rgb(189, 41, 127));
                 }
                 shootAtPlayer();
             }
@@ -320,7 +320,7 @@ public class Fields extends AppCompatActivity {
             }
         }
         else{
-            playerButtons[x][y].setBackgroundColor(Color.GREEN);
+            playerButtons[x][y].setBackgroundColor(Color.rgb(189, 41, 127));
         }
         playerField[x][y].isHit = true;
     }

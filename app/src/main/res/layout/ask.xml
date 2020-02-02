@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/reduced_waves"
     tools:context=".Ask">
 
     <ScrollView
@@ -13,7 +14,7 @@
         android:layout_marginTop="200dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/ask_question"
@@ -26,7 +27,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-</ScrollView>
+    </ScrollView>
 
     <Button
         android:id="@+id/ask_answer_1"
