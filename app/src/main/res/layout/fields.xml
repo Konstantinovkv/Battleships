@@ -100,47 +100,47 @@
         app:layout_constraintTop_toTopOf="@+id/cell_2" />
 
     <Button
-        android:id="@+id/cell_p_13"
+        android:id="@+id/comp_cell_2"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/cell_p_"
-        app:layout_constraintEnd_toEndOf="@+id/cell_p_"
-        app:layout_constraintStart_toStartOf="@+id/cell_p_" />
+        app:layout_constraintBottom_toTopOf="@+id/comp_cell_5"
+        app:layout_constraintEnd_toEndOf="@+id/comp_cell_5"
+        app:layout_constraintStart_toStartOf="@+id/comp_cell_5" />
 
     <Button
-        android:id="@+id/cell_p_12"
+        android:id="@+id/comp_cell_6"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/cell_p_"
-        app:layout_constraintStart_toEndOf="@+id/cell_p_"
-        app:layout_constraintTop_toTopOf="@+id/cell_p_" />
+        app:layout_constraintBottom_toBottomOf="@+id/comp_cell_5"
+        app:layout_constraintStart_toEndOf="@+id/comp_cell_5"
+        app:layout_constraintTop_toTopOf="@+id/comp_cell_5" />
 
     <Button
-        android:id="@+id/cell_p_11"
+        android:id="@+id/comp_cell_3"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="10dp"
         android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/cell_p_12"
-        app:layout_constraintEnd_toEndOf="@+id/cell_p_12"
-        app:layout_constraintStart_toEndOf="@+id/cell_p_13"
-        app:layout_constraintTop_toTopOf="@+id/cell_p_13" />
+        app:layout_constraintBottom_toTopOf="@+id/comp_cell_6"
+        app:layout_constraintEnd_toEndOf="@+id/comp_cell_6"
+        app:layout_constraintStart_toEndOf="@+id/comp_cell_2"
+        app:layout_constraintTop_toTopOf="@+id/comp_cell_2" />
 
     <Button
-        android:id="@+id/cell_p_15"
+        android:id="@+id/comp_cell_1"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/cell_p_10"
-        app:layout_constraintEnd_toStartOf="@+id/cell_p_13"
-        app:layout_constraintStart_toStartOf="@+id/cell_p_10"
-        app:layout_constraintTop_toTopOf="@+id/cell_p_13" />
+        app:layout_constraintBottom_toTopOf="@+id/comp_cell_4"
+        app:layout_constraintEnd_toStartOf="@+id/comp_cell_2"
+        app:layout_constraintStart_toStartOf="@+id/comp_cell_4"
+        app:layout_constraintTop_toTopOf="@+id/comp_cell_2" />
 
     <Button
-        android:id="@+id/cell_p_"
+        android:id="@+id/comp_cell_5"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="350dp"
@@ -150,44 +150,44 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/cell_p_10"
+        android:id="@+id/comp_cell_4"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginEnd="10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/cell_p_"
-        app:layout_constraintEnd_toStartOf="@+id/cell_p_"
-        app:layout_constraintTop_toTopOf="@+id/cell_p_" />
+        app:layout_constraintBottom_toBottomOf="@+id/comp_cell_5"
+        app:layout_constraintEnd_toStartOf="@+id/comp_cell_5"
+        app:layout_constraintTop_toTopOf="@+id/comp_cell_5" />
 
     <Button
-        android:id="@+id/cell_p_17"
+        android:id="@+id/comp_cell_9"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/cell_p_16"
-        app:layout_constraintEnd_toEndOf="@+id/cell_p_12"
-        app:layout_constraintStart_toEndOf="@+id/cell_p_16"
-        app:layout_constraintTop_toBottomOf="@+id/cell_p_12" />
+        app:layout_constraintBottom_toBottomOf="@+id/comp_cell_8"
+        app:layout_constraintEnd_toEndOf="@+id/comp_cell_6"
+        app:layout_constraintStart_toEndOf="@+id/comp_cell_8"
+        app:layout_constraintTop_toBottomOf="@+id/comp_cell_6" />
 
     <Button
-        android:id="@+id/cell_p_14"
+        android:id="@+id/comp_cell_7"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/cell_p_16"
-        app:layout_constraintEnd_toStartOf="@+id/cell_p_16"
-        app:layout_constraintStart_toStartOf="@+id/cell_p_10"
-        app:layout_constraintTop_toBottomOf="@+id/cell_p_10" />
+        app:layout_constraintBottom_toBottomOf="@+id/comp_cell_8"
+        app:layout_constraintEnd_toStartOf="@+id/comp_cell_8"
+        app:layout_constraintStart_toStartOf="@+id/comp_cell_4"
+        app:layout_constraintTop_toBottomOf="@+id/comp_cell_4" />
 
     <Button
-        android:id="@+id/cell_p_16"
+        android:id="@+id/comp_cell_8"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="@+id/cell_p_"
-        app:layout_constraintStart_toStartOf="@+id/cell_p_"
-        app:layout_constraintTop_toBottomOf="@+id/cell_p_" />
+        app:layout_constraintEnd_toEndOf="@+id/comp_cell_5"
+        app:layout_constraintStart_toStartOf="@+id/comp_cell_5"
+        app:layout_constraintTop_toBottomOf="@+id/comp_cell_5" />
 
     <Button
         android:id="@+id/back_fields"

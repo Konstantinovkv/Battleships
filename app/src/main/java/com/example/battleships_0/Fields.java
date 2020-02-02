@@ -3,6 +3,7 @@ package com.example.battleships_0;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,7 +11,9 @@ import android.widget.Toast;
 
 public class Fields extends AppCompatActivity {
 
-    private Button one, two, three, four, five, six, seven, eight, nine, back;
+    private Button one, two, three, four, five, six, seven, eight, nine,
+            back,
+            pcOne, pcTwo, pcThree, pcFour, pcFive, pcSix, pcSeven, pcEight, pcNine;
 
     private static Cell[][] playerField;
 
@@ -22,7 +25,11 @@ public class Fields extends AppCompatActivity {
 
         initializeButtons();
 
-        fieldOnClicker();
+        buttonColourSetter();
+
+        playerFieldOnClicker();
+
+        pcFieldOnClicker();
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -32,14 +39,10 @@ public class Fields extends AppCompatActivity {
         });
     }
 
-    private void fieldOnClicker(){
+    private void playerFieldOnClicker(){
         one.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (playerField[0][0].hasShip){
-                    makeToast("Success");
-                }
             }
         });
 
@@ -100,6 +103,70 @@ public class Fields extends AppCompatActivity {
         });
     }
 
+    private void pcFieldOnClicker(){
+        pcOne.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+
+        pcTwo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        pcThree.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        pcFour.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        pcFive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        pcSix.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        pcSeven.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        pcEight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        pcNine.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
+
     private void initializeButtons(){
         one = findViewById(R.id.cell_1);
         two = findViewById(R.id.cell_2);
@@ -110,7 +177,18 @@ public class Fields extends AppCompatActivity {
         seven = findViewById(R.id.cell_7);
         eight = findViewById(R.id.cell_8);
         nine = findViewById(R.id.cell_9);
+
         back = findViewById(R.id.back_fields);
+
+        pcOne = findViewById(R.id.comp_cell_1);
+        pcTwo = findViewById(R.id.comp_cell_2);
+        pcThree = findViewById(R.id.comp_cell_3);
+        pcFour = findViewById(R.id.comp_cell_4);
+        pcFive = findViewById(R.id.comp_cell_5);
+        pcSix = findViewById(R.id.comp_cell_6);
+        pcSeven = findViewById(R.id.comp_cell_7);
+        pcEight = findViewById(R.id.comp_cell_8);
+        pcNine = findViewById(R.id.comp_cell_9);
     }
 
     private void backToMain(){
@@ -130,4 +208,28 @@ public class Fields extends AppCompatActivity {
     public void setPlayerField(Cell[][] playerField) {
         this.playerField = playerField;
     }
+
+    private void buttonColourSetter(){
+        one.setBackgroundColor(Color.rgb(61,108,180));
+        two.setBackgroundColor(Color.rgb(61,108,180));
+        three.setBackgroundColor(Color.rgb(61,108,180));
+        four.setBackgroundColor(Color.rgb(61,108,180));
+        five.setBackgroundColor(Color.rgb(61,108,180));
+        six.setBackgroundColor(Color.rgb(61,108,180));
+        seven.setBackgroundColor(Color.rgb(61,108,180));
+        eight.setBackgroundColor(Color.rgb(61,108,180));
+        nine.setBackgroundColor(Color.rgb(61,108,180));
+
+        pcOne.setBackgroundColor(Color.rgb(61,108,180));
+        pcTwo.setBackgroundColor(Color.rgb(61,108,180));
+        pcThree.setBackgroundColor(Color.rgb(61,108,180));
+        pcFour.setBackgroundColor(Color.rgb(61,108,180));
+        pcFive.setBackgroundColor(Color.rgb(61,108,180));
+        pcSix.setBackgroundColor(Color.rgb(61,108,180));
+        pcSeven.setBackgroundColor(Color.rgb(61,108,180));
+        pcEight.setBackgroundColor(Color.rgb(61,108,180));
+        pcNine.setBackgroundColor(Color.rgb(61,108,180));
+    }
 }
+
+
