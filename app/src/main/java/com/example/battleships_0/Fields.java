@@ -60,81 +60,144 @@ public class Fields extends AppCompatActivity {
         pcOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(checkIfHit(0,0)){
+                    return;
+                }
                 if (shootAtComputer(0,0)){
                     pcOne.setBackgroundColor(Color.RED);
                 }
+                else{
+                    pcOne.setBackgroundColor(Color.GREEN);
+                }
+                shootAtPlayer();
             }
         });
 
         pcTwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(checkIfHit(0,1)){
+                    return;
+                }
                 if (shootAtComputer(0,1)){
                     pcTwo.setBackgroundColor(Color.RED);
                 }
+                else{
+                    pcTwo.setBackgroundColor(Color.GREEN);
+                }
+                shootAtPlayer();
             }
         });
 
         pcThree.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(checkIfHit(0,2)){
+                    return;
+                }
                 if (shootAtComputer(0,2)){
                     pcThree.setBackgroundColor(Color.RED);
                 }
+                else{
+                    pcThree.setBackgroundColor(Color.GREEN);
+                }
+                shootAtPlayer();
             }
         });
 
         pcFour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(checkIfHit(1,0)){
+                    return;
+                }
                 if (shootAtComputer(1,0)){
                     pcFour.setBackgroundColor(Color.RED);
                 }
+                else{
+                    pcFour.setBackgroundColor(Color.GREEN);
+                }
+                shootAtPlayer();
             }
         });
 
         pcFive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(checkIfHit(1,1)){
+                    return;
+                }
                 if (shootAtComputer(1,1)){
                     pcFive.setBackgroundColor(Color.RED);
                 }
+                else{
+                    pcFive.setBackgroundColor(Color.GREEN);
+                }
+                shootAtPlayer();
             }
         });
 
         pcSix.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(checkIfHit(1,2)){
+                    return;
+                }
                 if (shootAtComputer(1,2)){
                     pcSix.setBackgroundColor(Color.RED);
                 }
+                else{
+                    pcSix.setBackgroundColor(Color.GREEN);
+                }
+                shootAtPlayer();
             }
         });
 
         pcSeven.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(checkIfHit(2,0)){
+                    return;
+                }
                 if (shootAtComputer(2,0)){
                     pcSeven.setBackgroundColor(Color.RED);
                 }
+                else{
+                    pcSeven.setBackgroundColor(Color.GREEN);
+                }
+                shootAtPlayer();
             }
         });
 
         pcEight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (checkIfHit(2,1)){
+                    return;
+                }
                 if (shootAtComputer(2,1)){
                     pcEight.setBackgroundColor(Color.RED);
                 }
+                else{
+                    pcEight.setBackgroundColor(Color.GREEN);
+                }
+                shootAtPlayer();
             }
         });
 
         pcNine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(checkIfHit(2,2)){
+                    return;
+                }
                 if (shootAtComputer(2,2)){
                     pcNine.setBackgroundColor(Color.RED);
                 }
+                else{
+                    pcNine.setBackgroundColor(Color.GREEN);
+                }
+                shootAtPlayer();
             }
         });
     }
@@ -243,8 +306,12 @@ public class Fields extends AppCompatActivity {
             shootAtPlayer();
         }
         if (playerField[x][y].hasShip) {
-            computerButtons[x][y].setBackgroundColor(Color.RED);
+            playerButtons[x][y].setBackgroundColor(Color.RED);
         }
+        else{
+            playerButtons[x][y].setBackgroundColor(Color.GREEN);
+        }
+        playerField[x][y].isHit = true;
     }
 
     private boolean shootAtComputer(int x, int y){
@@ -269,6 +336,14 @@ public class Fields extends AppCompatActivity {
                 {four, five, six},
                 {seven, eight, nine}
         };
+    }
+
+    private boolean checkIfHit(int x, int y){
+        if (computerField[x][y].isHit){
+            makeToast("You cannot hit the same field twice.");
+            return true;
+        }
+        return false;
     }
 
 }
