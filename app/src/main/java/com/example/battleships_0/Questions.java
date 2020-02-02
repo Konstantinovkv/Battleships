@@ -14,22 +14,12 @@ import java.util.List;
 
 public class Questions extends AppCompatActivity {
 
-    ApplicationContext context;
-
-    List<String> questionsDev = new ArrayList<>();
-    List<String> questionsDevOps = new ArrayList<>();
-    List<String> questionsQa = new ArrayList<>();
-    List<String> questionsBa = new ArrayList<>();
-    List<String> questionsHr = new ArrayList<>();
-
     Button questionOne, questionTwo, questionThree, questionFour, questionFive, back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.questions);
-        //Get the current context
-        this.context = ApplicationContext.getContext();
 
         questionOne = findViewById(R.id.question_1);
         questionTwo = findViewById(R.id.question_2);
@@ -41,8 +31,8 @@ public class Questions extends AppCompatActivity {
         questionOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Set the current question in the context
-                context.setQuestion("1");
+                //Do stuff
+                ApplicationContext.getContext().setQuestion(1);
                 goToAdminEditor();
             }
         });
@@ -51,6 +41,7 @@ public class Questions extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Do stuff
+                ApplicationContext.getContext().setQuestion(2);
                 goToAdminEditor();
             }
         });
@@ -59,6 +50,7 @@ public class Questions extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Do stuff
+                ApplicationContext.getContext().setQuestion(3);
                 goToAdminEditor();
             }
         });
@@ -67,6 +59,7 @@ public class Questions extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Do stuff
+                ApplicationContext.getContext().setQuestion(4);
                 goToAdminEditor();
             }
         });
@@ -75,6 +68,7 @@ public class Questions extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Do stuff
+                ApplicationContext.getContext().setQuestion(5);
                 goToAdminEditor();
             }
         });
@@ -88,7 +82,7 @@ public class Questions extends AppCompatActivity {
     }
 
     public void backToMain(){
-        Intent intent = new Intent(this, Categories.class);
+        Intent intent = new Intent(this, AdminCategories.class);
         startActivity(intent);
     }
 

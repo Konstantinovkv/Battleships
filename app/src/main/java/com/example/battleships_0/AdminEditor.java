@@ -5,45 +5,60 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.battleships_0.context.ApplicationContext;
-
+import com.example.battleships_0.pojos.Question;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AdminEditor extends AppCompatActivity {
 
-    ApplicationContext context;
+    private String fileName = ".txt";
 
-    DatabaseHelper db;
+    private int questionID;
 
-    private static final String FILE_NAME = "question.txt";
+    private String question, answerOne, answerTwo, answerThree, category;
 
-    String question, answerOne, answerTwo, answerThree, correctAnswer, category;
+    private List<String> answers = new ArrayList<>();
 
-    EditText questionInput, answerOneInput, answerTwoInput, answerThreeInput, correctAnswerInput,
-            categoryInput;
+    private Integer correctAnswer;
 
-    Button submit, back;
+    private EditText questionInput, answerOneInput, answerTwoInput, answerThreeInput;
+
+    private Button submit, back;
+
+    private RadioGroup radioGroup;
+
+    private RadioButton correct;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_editor);
-        //Get the current context
-        this.context = ApplicationContext.getContext();
 
-        db = new DatabaseHelper(this);
+        category = ApplicationContext.getContext().getCategory();
+        questionID = ApplicationContext.getContext().getQuestion();
 
+        fileName = category+questionID+fileName;
+
+        radioGroup = findViewById(R.id.radioGroup);
 
         questionInput = findViewById(R.id.enter_question);
-        questionInput.setText(context.getQuestion());
-//        answerOneInput = findViewById(R.id.enter_answer_1);
-//        answerTwoInput = findViewById(R.id.enter_answer_2);
-//        answerThreeInput = findViewById(R.id.enter_answer_3);
+        answerOneInput = findViewById(R.id.enter_answer_1);
+        answerTwoInput = findViewById(R.id.enter_answer_2);
+        answerThreeInput = findViewById(R.id.enter_answer_3);
+
+        load();
 
         submit = findViewById(R.id.submit_form);
         back = findViewById(R.id.back_admin_editor);
@@ -51,10 +66,24 @@ public class AdminEditor extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (checkButton() == 0){
+                    return;
+                }
+                correctAnswer = checkButton();
                 question = questionInput.getText().toString();
                 answerOne = answerOneInput.getText().toString();
                 answerTwo = answerTwoInput.getText().toString();
                 answerThree = answerThreeInput.getText().toString();
+
+                packAnswers();
+
+                try {
+                    save();
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
+
+
                 openQuestions();
             }
         });
@@ -65,29 +94,99 @@ public class AdminEditor extends AppCompatActivity {
                 openQuestions();
             }
         });
-        AddData();
     }
 
-    public void AddData() {
-        submit.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+    public void save() throws JsonProcessingException {
 
-                        long isInserted = db.insertNote(question);
-                        if (isInserted > 0) {
-                            Toast.makeText(AdminEditor.this, "Data Inserted", Toast.LENGTH_LONG).show();
-                        } else {
-                            Toast.makeText(AdminEditor.this, "Data not Inserted", Toast.LENGTH_LONG).show();
-                        }
-                    }
+        Question quObj = new Question(question,answers,correctAnswer,category);
 
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        String jsonStr = objectMapper.writeValueAsString(quObj);
+
+        String text = jsonStr;
+        FileOutputStream fos = null;
+        try {
+            fos = openFileOutput(fileName, MODE_PRIVATE);
+            fos.write(text.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                if (fos != null){
+                    fos.close();
                 }
-        );
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
-    public void openQuestions() {
+    public void load(){
+        FileInputStream fis = null;
+        try {
+            fis = openFileInput(fileName);
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader br = new BufferedReader(isr);
+            StringBuilder sb = new StringBuilder();
+            String text;
+
+            while((text = br.readLine()) != null){
+                sb.append(text).append("\n");
+            }
+
+            Question quObj = jsonToObject(sb.toString());
+
+            questionInput.setText(quObj.getQuestion());
+            System.out.println(quObj.getQuestion());
+            answerOneInput.setText(quObj.getAnswers().get(0));
+            answerTwoInput.setText(quObj.getAnswers().get(1));
+            answerThreeInput.setText(quObj.getAnswers().get(2));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        finally {
+            if (fis != null){
+                try {
+                    fis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private void openQuestions() {
         Intent intent = new Intent(this, Questions.class);
         startActivity(intent);
+    }
+
+    private int checkButton(){
+        char value = '1';
+        try {
+            int radioId = radioGroup.getCheckedRadioButtonId();
+            correct = findViewById(radioId);
+            value = correct.getText().charAt(8);
+        }catch (NullPointerException e){
+            makeToast("You must choose a correct answer.");
+            return 0;
+        }
+        return Character.getNumericValue(value);
+    }
+
+    private void makeToast(String text){
+        Toast.makeText(getApplicationContext(),text, Toast.LENGTH_SHORT).show();
+    }
+
+    private void packAnswers(){
+        answers.add(answerOne);
+        answers.add(answerTwo);
+        answers.add(answerThree);
+    }
+
+    private Question jsonToObject(String json) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readValue(json, Question.class);
     }
 }

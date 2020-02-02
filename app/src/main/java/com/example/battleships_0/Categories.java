@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.example.battleships_0.context.ApplicationContext;
+
 public class Categories extends AppCompatActivity {
 
     Button dev, devops, qa, ba, delivery, back;
@@ -27,6 +29,7 @@ public class Categories extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Do stuff
+                ApplicationContext.getContext().setCategory("dev");
                 goToPlayerField();
 
             }
@@ -36,6 +39,7 @@ public class Categories extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Do stuff
+                ApplicationContext.getContext().setCategory("devops");
                 goToPlayerField();
             }
         });
@@ -44,6 +48,7 @@ public class Categories extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Do stuff
+                ApplicationContext.getContext().setCategory("qa");
                 goToPlayerField();
             }
         });
@@ -52,6 +57,7 @@ public class Categories extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Do stuff
+                ApplicationContext.getContext().setCategory("ba");
                 goToPlayerField();
             }
         });
@@ -60,6 +66,7 @@ public class Categories extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Do stuff
+                ApplicationContext.getContext().setCategory("delivery");
                 goToPlayerField();
             }
         });

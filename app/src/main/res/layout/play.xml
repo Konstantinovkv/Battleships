@@ -12,6 +12,7 @@
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="532dp"
         android:layout_height="329dp"
+        android:layout_marginBottom="100dp"
         android:background="@drawable/play_png"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

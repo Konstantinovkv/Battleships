@@ -5,13 +5,11 @@ import com.example.battleships_0.Cell;
 public class ApplicationContext {
 
     private String category;
-    private String question;
+    private int question;
     private Cell[][] playerField;
     private static ApplicationContext context = new ApplicationContext();
 
     private ApplicationContext() {
-        this.category = category;
-        this.question = question;
     }
 
     public static ApplicationContext getContext(){
@@ -26,11 +24,11 @@ public class ApplicationContext {
         return category;
     }
 
-    public String getQuestion() {
+    public int getQuestion() {
         return question;
     }
 
-    public void setQuestion(String question) {
+    public void setQuestion(int question) {
         this.question = question;
     }
 

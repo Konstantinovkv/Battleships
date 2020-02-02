@@ -3,17 +3,20 @@ package com.example.battleships_0.pojos;
 import java.util.List;
 
 public class Question {
+
     private String question;
-    private List<Answer> answers;
-    private Answer correctAnswer;
+    private List<String> answers;
+    private Integer correctAnswer;
+    private String category;
 
     public Question() {
     }
 
-    public Question(String question, List<Answer> answers, Answer correctAnswer) {
+    public Question(String question, List<String> answers, Integer correctAnswer, String category) {
         this.question = question;
         this.answers = answers;
         this.correctAnswer = correctAnswer;
+        this.category = category;
     }
 
     public String getQuestion() {
@@ -24,19 +27,19 @@ public class Question {
         this.question = question;
     }
 
-    public List<Answer> getAnswers() {
+    public List<String> getAnswers() {
         return answers;
     }
 
-    public void setAnswers(List<Answer> answers) {
+    public void setAnswers(List<String> answers) {
         this.answers = answers;
     }
 
-    public Answer getCorrectAnswer() {
+    public Integer getCorrectAnswer() {
         return correctAnswer;
     }
 
-    public void setCorrectAnswer(Answer correctAnswer) {
+    public void setCorrectAnswer(Integer correctAnswer) {
         this.correctAnswer = correctAnswer;
     }
 }
