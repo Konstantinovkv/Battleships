@@ -7,10 +7,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.battleships_0.context.ApplicationContext;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Questions extends AppCompatActivity {
+
+    ApplicationContext context;
 
     List<String> questionsDev = new ArrayList<>();
     List<String> questionsDevOps = new ArrayList<>();
@@ -24,6 +28,8 @@ public class Questions extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.questions);
+        //Get the current context
+        this.context = ApplicationContext.getContext();
 
         questionOne = findViewById(R.id.question_1);
         questionTwo = findViewById(R.id.question_2);
@@ -35,7 +41,8 @@ public class Questions extends AppCompatActivity {
         questionOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Do stuff
+                //Set the current question in the context
+                context.setQuestion("1");
                 goToAdminEditor();
             }
         });

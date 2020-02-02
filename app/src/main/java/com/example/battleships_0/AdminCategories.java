@@ -6,17 +6,19 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.battleships_0.context.ApplicationContext;
+
 public class AdminCategories extends AppCompatActivity {
 
     Button dev, devops, qa, ba, hr, back;
-
+    ApplicationContext context;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_categories);
-
+        context = ApplicationContext.getContext();
         dev = findViewById(R.id.admin_category_1);
         devops = findViewById(R.id.admin_category_2);
         qa = findViewById(R.id.admin_category_3);
@@ -28,8 +30,8 @@ public class AdminCategories extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Do stuff
-
-                goToQuestions();
+                context.setCategory("dev");
+                goToQuestions("dev");
 
             }
         });
@@ -39,7 +41,7 @@ public class AdminCategories extends AppCompatActivity {
             public void onClick(View v) {
                 //Do stuff
 
-                goToQuestions();
+                goToQuestions("devops");
             }
         });
 
@@ -48,7 +50,7 @@ public class AdminCategories extends AppCompatActivity {
             public void onClick(View v) {
                 //Do stuff
 
-                goToQuestions();
+                goToQuestions("qa");
             }
         });
 
@@ -57,7 +59,7 @@ public class AdminCategories extends AppCompatActivity {
             public void onClick(View v) {
                 //Do stuff
 
-                goToQuestions();
+                goToQuestions("ba");
             }
         });
 
@@ -66,7 +68,7 @@ public class AdminCategories extends AppCompatActivity {
             public void onClick(View v) {
                 //Do stuff
 
-                goToQuestions();
+                goToQuestions("hr");
             }
         });
 
@@ -78,7 +80,7 @@ public class AdminCategories extends AppCompatActivity {
         });
     }
 
-    public void goToQuestions(){
+    public void goToQuestions(String category){
         Intent intent = new Intent(this, Questions.class);
         startActivity(intent);
     }
