@@ -7,13 +7,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.example.battleships_0.context.ApplicationContext;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class PlayerField extends AppCompatActivity {
-
-    private Fields fields = new Fields();
 
     private Random randomNum = new Random();
 
@@ -49,8 +50,6 @@ public class PlayerField extends AppCompatActivity {
         buttonColourSetter();
 
         fieldClicker();
-
-        fields.setPlayerField(field);
 
         shipClicker();
 
@@ -252,6 +251,7 @@ public class PlayerField extends AppCompatActivity {
         else if (subClicked && !hasSub){
             field[x][y].hasShip = true;
             hasSub = true;
+            ApplicationContext.getContext().setPlayerField(field);
             makeToast("You have placed a sub.");
             return true;
         }
@@ -275,6 +275,7 @@ public class PlayerField extends AppCompatActivity {
             hasDestOne = true;
             positionChecker(x,y);
             coloring(224, 241, 242);
+            ApplicationContext.getContext().setPlayerField(field);
             makeToast("Choose second coordinate from the highlight");
             return true;
         }
@@ -285,6 +286,7 @@ public class PlayerField extends AppCompatActivity {
             destPossibilitiesRevert();
             field[x][y].hasShip = true;
             hasDestTwo = true;
+            ApplicationContext.getContext().setPlayerField(field);
             makeToast("You have placed a destroyer.");
             return true;
         }
@@ -405,6 +407,7 @@ public class PlayerField extends AppCompatActivity {
         int y = randomNum.nextInt(3);
         field[x][y].hasShip = true;
         hasSub = true;
+        ApplicationContext.getContext().setPlayerField(field);
         possibleButtons.add(new Point(x,y));
         placeSecondShip();
     }
@@ -438,6 +441,7 @@ public class PlayerField extends AppCompatActivity {
         coloring(98,34,121);
         hasDestOne = true;
         hasDestTwo = false;
+        ApplicationContext.getContext().setPlayerField(field);
         return false;
     }
 

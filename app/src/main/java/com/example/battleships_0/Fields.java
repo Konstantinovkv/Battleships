@@ -1,13 +1,13 @@
 package com.example.battleships_0;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+import com.example.battleships_0.context.ApplicationContext;
 
 public class Fields extends AppCompatActivity {
 
@@ -15,19 +15,20 @@ public class Fields extends AppCompatActivity {
             back,
             pcOne, pcTwo, pcThree, pcFour, pcFive, pcSix, pcSeven, pcEight, pcNine;
 
-    private static Cell[][] playerField;
+    private Cell[][] playerField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fields);
 
-
         initializeButtons();
 
         buttonColourSetter();
 
-        playerFieldOnClicker();
+        playerField = ApplicationContext.getContext().getPlayerField();
+
+        playerShipMarker();
 
         pcFieldOnClicker();
 
@@ -35,70 +36,6 @@ public class Fields extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 backToMain();
-            }
-        });
-    }
-
-    private void playerFieldOnClicker(){
-        one.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
-
-        two.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        three.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        four.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        five.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        six.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        seven.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        eight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        nine.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
             }
         });
     }
@@ -205,8 +142,35 @@ public class Fields extends AppCompatActivity {
         Toast.makeText(getApplicationContext(),text, Toast.LENGTH_SHORT).show();
     }
 
-    public void setPlayerField(Cell[][] playerField) {
-        this.playerField = playerField;
+    private void playerShipMarker(){
+        int counter = 1;
+        for (int i = 0; i < playerField.length; i++) {
+            for (int j = 0; j <playerField[i].length ; j++) {
+                if (playerField[i][j].hasShip){
+                    switch (counter){
+                        case 1: one.setBackgroundColor(Color.rgb(98, 34, 121));
+                            break;
+                        case 2: two.setBackgroundColor(Color.rgb(98, 34, 121));
+                            break;
+                        case 3: three.setBackgroundColor(Color.rgb(98, 34, 121));
+                            break;
+                        case 4: four.setBackgroundColor(Color.rgb(98, 34, 121));
+                            break;
+                        case 5: five.setBackgroundColor(Color.rgb(98, 34, 121));
+                            break;
+                        case 6: six.setBackgroundColor(Color.rgb(98, 34, 121));
+                            break;
+                        case 7: seven.setBackgroundColor(Color.rgb(98, 34, 121));
+                            break;
+                        case 8: eight.setBackgroundColor(Color.rgb(98, 34, 121));
+                            break;
+                        case 9: nine.setBackgroundColor(Color.rgb(98, 34, 121));
+                            break;
+                    }
+                }
+                counter++;
+            }
+        }
     }
 
     private void buttonColourSetter(){
