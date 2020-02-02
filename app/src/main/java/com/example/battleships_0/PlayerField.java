@@ -13,9 +13,11 @@ import java.util.Random;
 
 public class PlayerField extends AppCompatActivity {
 
+    private Fields fields = new Fields();
+
     private Random randomNum = new Random();
 
-    private Button one, two, three, four, five, six, seven, eight, nine, back, random, sub, destroyer;
+    private Button one, two, three, four, five, six, seven, eight, nine, back, random, sub, destroyer, submit;
 
     private Cell[][] field = new Cell[3][3];
 
@@ -27,6 +29,9 @@ public class PlayerField extends AppCompatActivity {
 
     private boolean subClicked;
     private boolean destClicked;
+
+    private int finalScore;
+    private int numberOfTurns;
 
     private List<Point> possibleButtons = new ArrayList<>();
 
@@ -45,9 +50,11 @@ public class PlayerField extends AppCompatActivity {
 
         fieldClicker();
 
+        fields.setPlayerField(field);
+
         shipClicker();
 
-        back.setOnClickListener(new View.OnClickListener() {
+        back.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 backToMain();
@@ -58,6 +65,18 @@ public class PlayerField extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 randomize();
+            }
+        });
+
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (hasSub == true && hasDestOne == true && hasDestTwo == true || randomized == true) {
+                    goToFields();
+                }
+                else{
+                    makeToast("You cannot submit without ships.");
+                }
             }
         });
     }
@@ -186,6 +205,11 @@ public class PlayerField extends AppCompatActivity {
         startActivity(intent);
     }
 
+    private void goToFields(){
+        Intent intent = new Intent(this, Fields.class);
+        startActivity(intent);
+    }
+
     private void initializeButtons(){
         one = findViewById(R.id.cell_p_1);
         two = findViewById(R.id.cell_p_2);
@@ -200,6 +224,8 @@ public class PlayerField extends AppCompatActivity {
         back = findViewById(R.id.back_player_field);
 
         random = findViewById(R.id.random);
+
+        submit = findViewById(R.id.submit_ships);
 
         sub = findViewById(R.id.sub);
         destroyer = findViewById(R.id.destroyer);
@@ -378,6 +404,7 @@ public class PlayerField extends AppCompatActivity {
         int x = randomNum.nextInt(3);
         int y = randomNum.nextInt(3);
         field[x][y].hasShip = true;
+        hasSub = true;
         possibleButtons.add(new Point(x,y));
         placeSecondShip();
     }
@@ -409,6 +436,8 @@ public class PlayerField extends AppCompatActivity {
             possibleButtons.add(new Point(x,y-1));
         }
         coloring(98,34,121);
+        hasDestOne = true;
+        hasDestTwo = false;
         return false;
     }
 
