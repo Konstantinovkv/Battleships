@@ -12,13 +12,18 @@ import java.util.Random;
 
 public class Fields extends AppCompatActivity {
 
-    int numberOfTurns;
-    int bullets = 1;
-    int finalScore;
+    private int numberOfTurns;
+    private int bullets = 1;
+    private int finalScore;
+    private boolean gameHasFinished;
+
     private Random randomNum = new Random();
 
     private Cell[][] playerField;
     private Cell[][] computerField = new Cell[3][3];
+    private Integer playerShipsHit = 0;
+    private Integer computerShipsHit = 0;
+
 
     private Button[][] computerButtons;
     private Button[][] playerButtons;
@@ -60,7 +65,7 @@ public class Fields extends AppCompatActivity {
         pcOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checkIfHit(0,0)){
+                if(checkIfHit(0,0) || gameHasFinished){
                     return;
                 }
                 if (shootAtComputer(0,0)){
@@ -76,7 +81,7 @@ public class Fields extends AppCompatActivity {
         pcTwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checkIfHit(0,1)){
+                if(checkIfHit(0,1) || gameHasFinished){
                     return;
                 }
                 if (shootAtComputer(0,1)){
@@ -92,7 +97,7 @@ public class Fields extends AppCompatActivity {
         pcThree.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checkIfHit(0,2)){
+                if(checkIfHit(0,2) || gameHasFinished){
                     return;
                 }
                 if (shootAtComputer(0,2)){
@@ -108,7 +113,7 @@ public class Fields extends AppCompatActivity {
         pcFour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checkIfHit(1,0)){
+                if(checkIfHit(1,0) || gameHasFinished){
                     return;
                 }
                 if (shootAtComputer(1,0)){
@@ -124,7 +129,7 @@ public class Fields extends AppCompatActivity {
         pcFive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checkIfHit(1,1)){
+                if(checkIfHit(1,1) || gameHasFinished){
                     return;
                 }
                 if (shootAtComputer(1,1)){
@@ -140,7 +145,7 @@ public class Fields extends AppCompatActivity {
         pcSix.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checkIfHit(1,2)){
+                if(checkIfHit(1,2) || gameHasFinished){
                     return;
                 }
                 if (shootAtComputer(1,2)){
@@ -156,7 +161,7 @@ public class Fields extends AppCompatActivity {
         pcSeven.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checkIfHit(2,0)){
+                if(checkIfHit(2,0) || gameHasFinished){
                     return;
                 }
                 if (shootAtComputer(2,0)){
@@ -172,7 +177,7 @@ public class Fields extends AppCompatActivity {
         pcEight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (checkIfHit(2,1)){
+                if (checkIfHit(2,1) || gameHasFinished){
                     return;
                 }
                 if (shootAtComputer(2,1)){
@@ -188,7 +193,7 @@ public class Fields extends AppCompatActivity {
         pcNine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checkIfHit(2,2)){
+                if(checkIfHit(2,2) || gameHasFinished){
                     return;
                 }
                 if (shootAtComputer(2,2)){
@@ -305,8 +310,14 @@ public class Fields extends AppCompatActivity {
         if (playerField[x][y].isHit){
             shootAtPlayer();
         }
-        if (playerField[x][y].hasShip) {
+        else if (playerField[x][y].hasShip) {
             playerButtons[x][y].setBackgroundColor(Color.RED);
+            playerShipsHit++;
+            System.out.println("Computer :  "+playerField[x][y].hasShip);
+            if (playerShipsHit == 3){
+                makeToast("You have lost the game!");
+                gameHasFinished = true;
+            }
         }
         else{
             playerButtons[x][y].setBackgroundColor(Color.GREEN);
@@ -317,6 +328,12 @@ public class Fields extends AppCompatActivity {
     private boolean shootAtComputer(int x, int y){
         computerField[x][y].isHit = true;
         if(computerField[x][y].hasShip){
+            computerShipsHit++;
+            if (computerShipsHit == 3){
+                makeToast("Congratulations!\n You have won the game!");
+                gameHasFinished = true;
+                return true;
+            }
             return true;
         }
         return false;
