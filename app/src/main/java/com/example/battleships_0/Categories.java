@@ -10,7 +10,6 @@ import android.widget.ImageButton;
 public class Categories extends AppCompatActivity {
 
     Button dev, devops, qa, ba, delivery;
-    ImageButton login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +21,6 @@ public class Categories extends AppCompatActivity {
         qa = findViewById(R.id.category_3);
         ba = findViewById(R.id.category_4);
         delivery = findViewById(R.id.category_5);
-        login = findViewById(R.id.login);
 
         dev.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,22 +62,10 @@ public class Categories extends AppCompatActivity {
                 goToPlayerField();
             }
         });
-
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToAdminLogin();
-            }
-        });
     }
 
     public void goToPlayerField(){
         Intent intent = new Intent(this, PlayerField.class);
-        startActivity(intent);
-    }
-
-    public void goToAdminLogin(){
-        Intent intent = new Intent(this, AdminLogin.class);
         startActivity(intent);
     }
 }
