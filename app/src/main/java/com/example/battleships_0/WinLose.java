@@ -63,8 +63,8 @@ public class WinLose extends AppCompatActivity {
 
     //Write winner or loser message
     private String setOutcomeMessage(boolean winner){
-        return winner ? "You loose! Your ships have been destroyed." :
-                "You win! You destroyed your opponents ships first!";
+        return winner ?  "You win! You destroyed your opponents ships first!":
+                "You loose! Your ships have been destroyed.";
     }
 
     private void goToPlayScreen(){

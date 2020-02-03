@@ -343,8 +343,9 @@ public class Fields extends AppCompatActivity {
                         playerField[i][j].isHit=true;
                         if (ApplicationContext.getContext().getPlayerShipsHit() == 3){
                             makeToast("You have lost the game!");
-                            System.out.println("DAJKSGDKJASGDKJSADGKAFA");
                             ApplicationContext.getContext().setGameHasFinished(true);
+                            ApplicationContext.getContext().setWinner(false);
+                            return;
                         }
                         return;
                     }
@@ -361,6 +362,7 @@ public class Fields extends AppCompatActivity {
             if (ApplicationContext.getContext().getComputerShipsHit() == 3){
                 makeToast("Congratulations!\n You have won the game!");
                 ApplicationContext.getContext().setGameHasFinished(true);
+                ApplicationContext.getContext().setWinner(true);
                 return true;
             }
             return true;
