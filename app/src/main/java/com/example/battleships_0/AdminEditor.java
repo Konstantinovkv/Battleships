@@ -39,7 +39,7 @@ public class AdminEditor extends AppCompatActivity {
 
     private RadioGroup radioGroup;
 
-    private RadioButton correct;
+    private RadioButton correct, correctOne, correctTwo, correctThree;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +52,10 @@ public class AdminEditor extends AppCompatActivity {
         fileName = category+questionID+fileName;
 
         radioGroup = findViewById(R.id.radioGroup);
+
+        correctOne = findViewById(R.id.c1);
+        correctTwo = findViewById(R.id.c2);
+        correctThree = findViewById(R.id.c3);
 
         questionInput = findViewById(R.id.enter_question);
         answerOneInput = findViewById(R.id.enter_answer_1);
@@ -143,6 +147,14 @@ public class AdminEditor extends AppCompatActivity {
             answerOneInput.setText(quObj.getAnswers().get(0));
             answerTwoInput.setText(quObj.getAnswers().get(1));
             answerThreeInput.setText(quObj.getAnswers().get(2));
+            switch (quObj.getCorrectAnswer()){
+                case 1: correctOne.setChecked(true);
+                    break;
+                case 2: correctTwo.setChecked(true);
+                    break;
+                case 3: correctThree.setChecked(true);
+                    break;
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

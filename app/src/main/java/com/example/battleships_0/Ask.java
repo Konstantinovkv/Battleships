@@ -8,6 +8,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.battleships_0.context.ApplicationContext;
+import com.example.battleships_0.pojos.Question;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -15,7 +19,7 @@ import java.io.InputStreamReader;
 
 public class Ask extends AppCompatActivity {
 
-    private static final String FILE_NAME = "question.txt";
+    private  String fileName = ".txt";
 
     Button answerOne, answerTwo, answerThree;
 
@@ -25,6 +29,11 @@ public class Ask extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ask);
+
+        String category = ApplicationContext.getContext().getCategory();
+        int questionID = ApplicationContext.getContext().getQuestion();
+
+        fileName = category + questionID+fileName;
 
         question = findViewById(R.id.ask_question);
 
@@ -65,7 +74,7 @@ public class Ask extends AppCompatActivity {
     public void load(){
         FileInputStream fis = null;
         try {
-            fis = openFileInput(FILE_NAME);
+            fis = openFileInput(fileName);
             InputStreamReader isr = new InputStreamReader(fis);
             BufferedReader br = new BufferedReader(isr);
             StringBuilder sb = new StringBuilder();
@@ -75,7 +84,13 @@ public class Ask extends AppCompatActivity {
                 sb.append(text).append("\n");
             }
 
-            question.setText(sb.toString());
+            Question quObj = jsonToObject(sb.toString());
+
+            question.setText(quObj.getQuestion());
+            System.out.println(quObj.getQuestion());
+            answerOne.setText(quObj.getAnswers().get(0));
+            answerTwo.setText(quObj.getAnswers().get(1));
+            answerThree.setText(quObj.getAnswers().get(2));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -88,6 +103,11 @@ public class Ask extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    private Question jsonToObject(String json) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readValue(json, Question.class);
     }
 
     public void goToPlayerField(){

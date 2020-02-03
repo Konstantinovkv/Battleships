@@ -7,6 +7,8 @@ public class ApplicationContext {
     private String category;
     private int question;
     private Cell[][] playerField;
+    private Integer result;
+    private boolean isWinner;
     private static ApplicationContext context = new ApplicationContext();
 
     private ApplicationContext() {
@@ -38,5 +40,21 @@ public class ApplicationContext {
 
     public void setPlayerField(Cell[][] playerField) {
         this.playerField = playerField;
+    }
+
+    public Integer getResult() {
+        return result;
+    }
+
+    public void setResult(Integer result) {
+        this.result = result;
+    }
+
+    public boolean isWinner() {
+        return isWinner;
+    }
+
+    public void setWinner(boolean winner) {
+        isWinner = winner;
     }
 }

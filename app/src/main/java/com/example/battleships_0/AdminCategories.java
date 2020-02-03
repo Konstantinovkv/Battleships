@@ -10,28 +10,26 @@ import com.example.battleships_0.context.ApplicationContext;
 
 public class AdminCategories extends AppCompatActivity {
 
-    Button dev, devops, qa, ba, hr, back;
-    ApplicationContext context;
+    Button dev, devops, qa, ba, delivery, back;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_categories);
-        context = ApplicationContext.getContext();
         dev = findViewById(R.id.admin_category_1);
         devops = findViewById(R.id.admin_category_2);
         qa = findViewById(R.id.admin_category_3);
         ba = findViewById(R.id.admin_category_4);
-        hr = findViewById(R.id.admin_category_5);
+        delivery = findViewById(R.id.admin_category_5);
         back = findViewById(R.id.back_admin_categories);
 
         dev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Do stuff
-                context.setCategory("dev");
-                goToQuestions("dev");
+                ApplicationContext.getContext().setCategory("dev");
+                goToQuestions();
 
             }
         });
@@ -40,8 +38,8 @@ public class AdminCategories extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Do stuff
-
-                goToQuestions("devops");
+                ApplicationContext.getContext().setCategory("devops");
+                goToQuestions();
             }
         });
 
@@ -49,8 +47,8 @@ public class AdminCategories extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Do stuff
-
-                goToQuestions("qa");
+                ApplicationContext.getContext().setCategory("qa");
+                goToQuestions();
             }
         });
 
@@ -58,17 +56,17 @@ public class AdminCategories extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Do stuff
-
-                goToQuestions("ba");
+                ApplicationContext.getContext().setCategory("ba");
+                goToQuestions();
             }
         });
 
-        hr.setOnClickListener(new View.OnClickListener() {
+        delivery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Do stuff
-
-                goToQuestions("hr");
+                ApplicationContext.getContext().setCategory("delivery");
+                goToQuestions();
             }
         });
 
@@ -80,7 +78,7 @@ public class AdminCategories extends AppCompatActivity {
         });
     }
 
-    public void goToQuestions(String category){
+    public void goToQuestions(){
         Intent intent = new Intent(this, Questions.class);
         startActivity(intent);
     }

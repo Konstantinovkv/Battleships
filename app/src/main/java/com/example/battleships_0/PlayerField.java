@@ -346,6 +346,9 @@ public class PlayerField extends AppCompatActivity {
         for (int i = 0; i < possibleButtons.size(); i++) {
             x = possibleButtons.get(i).x;
             y = possibleButtons.get(i).y;
+            if (field[x][y].hasShip){
+                continue;
+            }
             playerButtons[x][y].setBackgroundColor(Color.rgb(61,108,180));
         }
     }

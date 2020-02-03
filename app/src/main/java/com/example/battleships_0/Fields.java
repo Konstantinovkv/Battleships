@@ -24,6 +24,8 @@ public class Fields extends AppCompatActivity {
     private Integer playerShipsHit = 0;
     private Integer computerShipsHit = 0;
 
+    private boolean isWinner;
+
 
     private Button[][] computerButtons;
     private Button[][] playerButtons;
@@ -65,146 +67,81 @@ public class Fields extends AppCompatActivity {
         pcOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checkIfHit(0,0) || gameHasFinished){
-                    return;
-                }
-                if (shootAtComputer(0,0)){
-                    pcOne.setBackgroundColor(Color.RED);
-                }
-                else{
-                    pcOne.setBackgroundColor(Color.rgb(189, 41, 127));
-                }
-                shootAtPlayer();
+                clickMethods(0,0, pcOne);
             }
         });
 
         pcTwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checkIfHit(0,1) || gameHasFinished){
-                    return;
-                }
-                if (shootAtComputer(0,1)){
-                    pcTwo.setBackgroundColor(Color.RED);
-                }
-                else{
-                    pcTwo.setBackgroundColor(Color.rgb(189, 41, 127));
-                }
-                shootAtPlayer();
+                clickMethods(0,1, pcTwo);
             }
         });
 
         pcThree.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checkIfHit(0,2) || gameHasFinished){
-                    return;
-                }
-                if (shootAtComputer(0,2)){
-                    pcThree.setBackgroundColor(Color.RED);
-                }
-                else{
-                    pcThree.setBackgroundColor(Color.rgb(189, 41, 127));
-                }
-                shootAtPlayer();
+                clickMethods(0,2, pcThree);
             }
         });
 
         pcFour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checkIfHit(1,0) || gameHasFinished){
-                    return;
-                }
-                if (shootAtComputer(1,0)){
-                    pcFour.setBackgroundColor(Color.RED);
-                }
-                else{
-                    pcFour.setBackgroundColor(Color.rgb(189, 41, 127));
-                }
-                shootAtPlayer();
+                clickMethods(1,0, pcFour);
             }
         });
 
         pcFive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checkIfHit(1,1) || gameHasFinished){
-                    return;
-                }
-                if (shootAtComputer(1,1)){
-                    pcFive.setBackgroundColor(Color.RED);
-                }
-                else{
-                    pcFive.setBackgroundColor(Color.rgb(189, 41, 127));
-                }
-                shootAtPlayer();
+                clickMethods(1,1, pcFive);
             }
         });
 
         pcSix.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checkIfHit(1,2) || gameHasFinished){
-                    return;
-                }
-                if (shootAtComputer(1,2)){
-                    pcSix.setBackgroundColor(Color.RED);
-                }
-                else{
-                    pcSix.setBackgroundColor(Color.rgb(189, 41, 127));
-                }
-                shootAtPlayer();
+                clickMethods(1,2, pcSix);
             }
         });
 
         pcSeven.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checkIfHit(2,0) || gameHasFinished){
-                    return;
-                }
-                if (shootAtComputer(2,0)){
-                    pcSeven.setBackgroundColor(Color.RED);
-                }
-                else{
-                    pcSeven.setBackgroundColor(Color.rgb(189, 41, 127));
-                }
-                shootAtPlayer();
+                clickMethods(2,0, pcSeven);
             }
         });
 
         pcEight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (checkIfHit(2,1) || gameHasFinished){
-                    return;
-                }
-                if (shootAtComputer(2,1)){
-                    pcEight.setBackgroundColor(Color.RED);
-                }
-                else{
-                    pcEight.setBackgroundColor(Color.rgb(189, 41, 127));
-                }
-                shootAtPlayer();
+                clickMethods(2,1, pcEight);
             }
         });
 
         pcNine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checkIfHit(2,2) || gameHasFinished){
-                    return;
-                }
-                if (shootAtComputer(2,2)){
-                    pcNine.setBackgroundColor(Color.RED);
-                }
-                else{
-                    pcNine.setBackgroundColor(Color.rgb(189, 41, 127));
-                }
-                shootAtPlayer();
+                clickMethods(2,2, pcNine);
             }
         });
+    }
+
+    private void clickMethods(int x, int y, Button button){
+        if(checkIfHit(x,y) || gameHasFinished){
+            return;
+        }
+        if (shootAtComputer(x,y)){
+            button.setBackgroundColor(Color.RED);
+        }
+        else{
+            button.setBackgroundColor(Color.rgb(189, 41, 127));
+        }
+        if (gameHasFinished){
+            return;
+        }
+        shootAtPlayer();
     }
 
     private void initializeButtons(){
@@ -316,6 +253,7 @@ public class Fields extends AppCompatActivity {
             System.out.println("Computer :  "+playerField[x][y].hasShip);
             if (playerShipsHit == 3){
                 makeToast("You have lost the game!");
+                ApplicationContext.getContext().setResult(finalScore);
                 gameHasFinished = true;
             }
         }
@@ -331,6 +269,7 @@ public class Fields extends AppCompatActivity {
             computerShipsHit++;
             if (computerShipsHit == 3){
                 makeToast("Congratulations!\n You have won the game!");
+                ApplicationContext.getContext().setResult(finalScore);
                 gameHasFinished = true;
                 return true;
             }
