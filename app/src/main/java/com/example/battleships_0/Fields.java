@@ -172,6 +172,8 @@ public class Fields extends AppCompatActivity {
         }
         if (ApplicationContext.getContext().isGameHasFinished()){
             endGameClear();
+            Intent intent = new Intent(this, WinLose.class);
+            startActivity(intent);
             return;
         }
         shootAtPlayer();
