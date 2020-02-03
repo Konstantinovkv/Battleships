@@ -9,6 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".WinLose"
+            android:theme="@style/AppTheme.WinLoseTheme"
+            ></activity>
         <activity android:name=".Play">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,9 +26,7 @@
         <activity android:name=".AdminLogin" />
         <activity android:name=".Fields" />
         <activity android:name=".Questions" />
-        <activity android:name=".Categories">
-
-        </activity>
+        <activity android:name=".Categories"></activity>
     </application>
 
 </manifest>
