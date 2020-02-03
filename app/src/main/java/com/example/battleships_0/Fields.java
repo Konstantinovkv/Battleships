@@ -188,6 +188,7 @@ public class Fields extends AppCompatActivity {
         ApplicationContext.getContext().setGameHasFinished(false);
         ApplicationContext.getContext().setGameHasStarted(false);
         ApplicationContext.getContext().setWinner(false);
+        ApplicationContext.getContext().setQuestion(1);
     }
 
     private void initializeButtons(){
@@ -294,6 +295,7 @@ public class Fields extends AppCompatActivity {
     }
 
     private boolean shootAtComputer(int x, int y){
+        ApplicationContext.getContext().setQuestion(ApplicationContext.getContext().getQuestion()+1);
         computerField[x][y].isHit = true;
         if(computerField[x][y].hasShip){
             ApplicationContext.getContext().setComputerShipsHit(ApplicationContext.getContext().getComputerShipsHit()+1);

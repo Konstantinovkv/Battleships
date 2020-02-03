@@ -30,10 +30,7 @@ public class Ask extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ask);
 
-        String category = ApplicationContext.getContext().getCategory();
-        int questionID = ApplicationContext.getContext().getQuestion();
-
-        fileName = category + questionID+fileName;
+        fileName = ApplicationContext.getContext().getCategory() + ApplicationContext.getContext().getQuestion()+fileName;
 
         question = findViewById(R.id.ask_question);
 

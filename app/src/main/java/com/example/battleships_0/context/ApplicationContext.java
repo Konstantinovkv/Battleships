@@ -7,15 +7,22 @@ public class ApplicationContext {
 
     private Integer playerShipsHit = 0;
     private Integer computerShipsHit = 0;
+
     private Cell[][] playerField;
+
     private Integer result = 0;
+    private Integer numberOfBullets = 0;
+    private Integer finalScore = 0;
+
     private boolean isWinner;
-    private boolean gameHasStarted;
+
     private Fields fields;
+
     private boolean gameHasFinished;
+    private boolean gameHasStarted;
 
     private String category;
-    private int question;
+    private Integer question = 1;
 
 
 

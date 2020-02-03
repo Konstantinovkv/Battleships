@@ -30,7 +30,7 @@ public class Categories extends AppCompatActivity {
             public void onClick(View v) {
                 //Do stuff
                 ApplicationContext.getContext().setCategory("dev");
-                goToPlayerField();
+                goToAsk();
 
             }
         });
@@ -40,7 +40,7 @@ public class Categories extends AppCompatActivity {
             public void onClick(View v) {
                 //Do stuff
                 ApplicationContext.getContext().setCategory("devops");
-                goToPlayerField();
+                goToAsk();
             }
         });
 
@@ -49,7 +49,7 @@ public class Categories extends AppCompatActivity {
             public void onClick(View v) {
                 //Do stuff
                 ApplicationContext.getContext().setCategory("qa");
-                goToPlayerField();
+                goToAsk();
             }
         });
 
@@ -58,7 +58,7 @@ public class Categories extends AppCompatActivity {
             public void onClick(View v) {
                 //Do stuff
                 ApplicationContext.getContext().setCategory("ba");
-                goToPlayerField();
+                goToAsk();
             }
         });
 
@@ -67,7 +67,7 @@ public class Categories extends AppCompatActivity {
             public void onClick(View v) {
                 //Do stuff
                 ApplicationContext.getContext().setCategory("delivery");
-                goToPlayerField();
+                goToAsk();
             }
         });
 
@@ -79,7 +79,7 @@ public class Categories extends AppCompatActivity {
         });
     }
 
-    public void goToPlayerField(){
+    public void goToAsk(){
         Intent intent = new Intent(this, PlayerField.class);
         startActivity(intent);
     }
