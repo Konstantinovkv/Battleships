@@ -66,7 +66,6 @@ public class Ask extends AppCompatActivity {
 
     private void answerClicker(int correct){
         if(correctAnswer == correct){
-
             if (ApplicationContext.getContext().getNumberOfTurns() < 4){
                 bulletAdder(1);
             }

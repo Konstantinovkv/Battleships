@@ -34,18 +34,13 @@ public class Fields extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (ApplicationContext.getContext().getNumberOfBullets() > 0){
+                    makeToast("You have more bullets.");
+                    return;
+                }
                 goToAsk();
             }
         });
-
-        if (ApplicationContext.getContext().isGameHasStarted()){
-            repopulateField();
-            if (ApplicationContext.getContext().getNumberOfBullets() == 0){
-                shootAtPlayer();
-            }
-            ApplicationContext.getContext().setNumberOfTurns(ApplicationContext.getContext().getNumberOfTurns()+1);
-            return;
-        }
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,6 +48,25 @@ public class Fields extends AppCompatActivity {
                 backToMain();
             }
         });
+
+        if (ApplicationContext.getContext().isGameHasStarted()){
+            repopulateField();
+            if (ApplicationContext.getContext().getNumberOfTurns()>2){
+                placeSecondShip();
+            }
+            if (ApplicationContext.getContext().getNumberOfBullets() == 0){
+                shootAtPlayer();
+            }
+            ApplicationContext.getContext().setNumberOfTurns(ApplicationContext.getContext().getNumberOfTurns()+1);
+            ApplicationContext.getContext().setFields(this);
+            if (ApplicationContext.getContext().isGameHasFinished()){
+                endGameClear();
+                Intent intent = new Intent(this, WinLose.class);
+                startActivity(intent);
+                return;
+            }
+            return;
+        }
 
         pcFieldOnClicker();
 
@@ -66,12 +80,11 @@ public class Fields extends AppCompatActivity {
         playerShipMarker();
 
         placeFirstShip();
-        placeSecondShip();
         ApplicationContext.getContext().setGameHasStarted(true);
-        ApplicationContext.getContext().setFields(this);
         if (ApplicationContext.getContext().getNumberOfBullets() == 0){
             shootAtPlayer();
         }
+        ApplicationContext.getContext().setFields(this);
         ApplicationContext.getContext().setNumberOfTurns(ApplicationContext.getContext().getNumberOfTurns()+1);
     }
 
@@ -213,6 +226,7 @@ public class Fields extends AppCompatActivity {
         ApplicationContext.getContext().setGameHasStarted(false);
         ApplicationContext.getContext().setWinner(false);
         ApplicationContext.getContext().setNumberOfTurns(1);
+        ApplicationContext.getContext().setQuestion(1);
     }
 
     private void initializeButtons(){
@@ -278,63 +292,64 @@ public class Fields extends AppCompatActivity {
     private boolean placeSecondShip(){
         int x = randomNum.nextInt(3);
         int y = randomNum.nextInt(3);
-        if (!computerField[x][y].hasShip) {
-            computerField[x][y].hasShip = true;
-        }
-        else{
-            return placeSecondShip();
-        }
-        if (x + 1 <= 2 && !computerField[x+1][y].hasShip){
-            computerField[x+1][y].hasShip = true;
-        }
-        else if (x - 1 >= 0 && !computerField[x-1][y].hasShip){
-            computerField[x-1][y].hasShip = true;
-        }
-        else if (y + 1 <= 2 && !computerField[x][y+1].hasShip){
-            computerField[x][y+1].hasShip = true;
-        }
-        else if (y - 1 >= 0 && !computerField[x][y-1].hasShip){
-            computerField[x][y-1].hasShip = true;
+
+        if (!computerField[x][y].hasShip && !computerField[x][y].isHit) {
+            if (x + 1 <= 2) {
+                if (!computerField[x + 1][y].hasShip && !computerField[x + 1][y].isHit) {
+                    computerField[x][y].hasShip= true;
+                    computerField[x+1][y].hasShip = true;
+                }
+            }
+            else if (x - 1 >= 0) {
+                if (!computerField[x - 1][y].hasShip && !computerField[x - 1][y].isHit) {
+                    computerField[x][y].hasShip= true;
+                    computerField[x-1][y].hasShip = true;
+                }
+            }
+            else if (y + 1 <= 2) {
+                if (!computerField[x][y+1].hasShip && !computerField[x][y+1].isHit) {
+                    computerField[x][y].hasShip= true;
+                    computerField[x][y+1].hasShip = true;
+                }
+            }
+            else if (y - 1 >= 0) {
+                if (!computerField[x][y-1].hasShip && !computerField[x][y-1].isHit) {
+                    computerField[x][y].hasShip= true;
+                    computerField[x][y-1].hasShip = true;
+                }
+            }
         }
         return false;
     }
 
     private void shootAtPlayer(){
         if (ApplicationContext.getContext().getNumberOfTurns() < 3){
-            System.out.println("1111111111111111111111111111111111");
-            int x = randomNum.nextInt(3);
-            int y = randomNum.nextInt(3);
-            if (playerField[x][y].isHit){
-                shootAtPlayer();
-            }
-            else if (playerField[x][y].hasShip) {
-                hitPlayer(x,y);
-            }
-            else{
-                playerButtons[x][y].setBackgroundColor(Color.rgb(189, 41, 127));
-            }
-            playerField[x][y].isHit = true;
-        }
-        else{
-            System.out.println("222222222222222222222222222222222");
             for (int i = 0; i < playerField.length; i++) {
                 for (int j = 0; j < playerField[i].length; j++) {
-                    if (playerField[i][j].hasShip && !playerField[i][j].isHit){
-                        hitPlayer(i,j);
+                    if (!playerField[i][j].hasShip && !playerField[i][j].isHit){
+                        playerButtons[i][j].setBackgroundColor(Color.rgb(189, 41, 127));
+                        playerField[i][j].isHit=true;
                         return;
                     }
                 }
             }
         }
-    }
-
-    private void hitPlayer(int x, int y){
-        System.out.println("3333333333333333333333333333");
-        playerButtons[x][y].setBackgroundColor(Color.RED);
-        ApplicationContext.getContext().setPlayerShipsHit(ApplicationContext.getContext().getPlayerShipsHit()+1);
-        if (ApplicationContext.getContext().getPlayerShipsHit() == 3){
-            makeToast("You have lost the game!");
-            ApplicationContext.getContext().setGameHasFinished(true);
+        else{
+            for (int i = 0; i < playerField.length; i++) {
+                for (int j = 0; j < playerField[i].length; j++) {
+                    if (playerField[i][j].hasShip && !playerField[i][j].isHit){
+                        playerButtons[i][j].setBackgroundColor(Color.RED);
+                        ApplicationContext.getContext().setPlayerShipsHit(ApplicationContext.getContext().getPlayerShipsHit()+1);
+                        playerField[i][j].isHit=true;
+                        if (ApplicationContext.getContext().getPlayerShipsHit() == 3){
+                            makeToast("You have lost the game!");
+                            System.out.println("DAJKSGDKJASGDKJSADGKAFA");
+                            ApplicationContext.getContext().setGameHasFinished(true);
+                        }
+                        return;
+                    }
+                }
+            }
         }
     }
 
