@@ -12,20 +12,10 @@ import java.util.Random;
 
 public class Fields extends AppCompatActivity {
 
-    private int numberOfTurns;
-    private int bullets = 1;
-    private int finalScore;
-    private boolean gameHasFinished;
-
     private Random randomNum = new Random();
 
     private Cell[][] playerField;
     private Cell[][] computerField = new Cell[3][3];
-    private Integer playerShipsHit = 0;
-    private Integer computerShipsHit = 0;
-
-    private boolean isWinner;
-
 
     private Button[][] computerButtons;
     private Button[][] playerButtons;
@@ -41,6 +31,20 @@ public class Fields extends AppCompatActivity {
 
         initializeButtons();
 
+        if (ApplicationContext.getContext().isGameHasStarted()){
+            repopulateField();
+            return;
+        }
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                backToMain();
+            }
+        });
+
+        pcFieldOnClicker();
+
         makePcArr();
         makePlayerArr();
 
@@ -52,15 +56,43 @@ public class Fields extends AppCompatActivity {
 
         placeFirstShip();
         placeSecondShip();
+        ApplicationContext.getContext().setGameHasStarted(true);
+    }
 
+    private void repopulateField(){
+        makePcArr();
+        makePlayerArr();
+        playerField = ApplicationContext.getContext().getFields().getPlayerField();
+        computerField = ApplicationContext.getContext().getFields().getComputerField();
+        buttonColourSetter();
         pcFieldOnClicker();
-
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 backToMain();
             }
         });
+
+        for (int i = 0; i < playerField.length; i++) {
+            for (int j = 0; j < playerField[i].length; j++) {
+                if (playerField[i][j].hasShip){
+                    playerButtons[i][j].setBackgroundColor(Color.rgb(98, 34, 121));
+                }
+                if (playerField[i][j].isHit && playerField[i][j].hasShip){
+                    playerButtons[i][j].setBackgroundColor(Color.RED);
+                }
+                if (playerField[i][j].isHit && !playerField[i][j].hasShip){
+                    playerButtons[i][j].setBackgroundColor(Color.rgb(189, 41, 127));
+                }
+                if (computerField[i][j].isHit && computerField[i][j].hasShip){
+                    computerButtons[i][j].setBackgroundColor(Color.RED);
+                }
+                if (computerField[i][j].isHit && !computerField[i][j].hasShip){
+                    computerButtons[i][j].setBackgroundColor(Color.rgb(189, 41, 127));
+                }
+            }
+
+        }
     }
 
     private void pcFieldOnClicker(){
@@ -129,7 +161,7 @@ public class Fields extends AppCompatActivity {
     }
 
     private void clickMethods(int x, int y, Button fieldButton){
-        if(checkIfHit(x,y) || gameHasFinished){
+        if(checkIfHit(x,y) || ApplicationContext.getContext().isGameHasFinished()){
             return;
         }
         if (shootAtComputer(x,y)){
@@ -138,10 +170,22 @@ public class Fields extends AppCompatActivity {
         else{
             fieldButton.setBackgroundColor(Color.rgb(189, 41, 127));
         }
-        if (gameHasFinished){
+        if (ApplicationContext.getContext().isGameHasFinished()){
+            endGameClear();
             return;
         }
         shootAtPlayer();
+        ApplicationContext.getContext().setFields(this);
+        goToAsk();
+    }
+
+    private void endGameClear(){
+        ApplicationContext.getContext().setFields(null);
+        ApplicationContext.getContext().setComputerShipsHit(0);
+        ApplicationContext.getContext().setPlayerShipsHit(0);
+        ApplicationContext.getContext().setGameHasFinished(false);
+        ApplicationContext.getContext().setGameHasStarted(false);
+        ApplicationContext.getContext().setWinner(false);
     }
 
     private void initializeButtons(){
@@ -166,20 +210,6 @@ public class Fields extends AppCompatActivity {
         pcSeven = findViewById(R.id.comp_cell_7);
         pcEight = findViewById(R.id.comp_cell_8);
         pcNine = findViewById(R.id.comp_cell_9);
-    }
-
-    private void backToMain(){
-        Intent intent = new Intent(this, Categories.class);
-        startActivity(intent);
-    }
-
-    private void goToAsk(){
-        Intent intent = new Intent(this, Ask.class);
-        startActivity(intent);
-    }
-
-    private void makeToast(String text){
-        Toast.makeText(getApplicationContext(),text, Toast.LENGTH_SHORT).show();
     }
 
     private void playerShipMarker(){
@@ -249,12 +279,10 @@ public class Fields extends AppCompatActivity {
         }
         else if (playerField[x][y].hasShip) {
             playerButtons[x][y].setBackgroundColor(Color.RED);
-            playerShipsHit++;
-            System.out.println("Computer :  "+playerField[x][y].hasShip);
-            if (playerShipsHit == 3){
+            ApplicationContext.getContext().setPlayerShipsHit(ApplicationContext.getContext().getPlayerShipsHit()+1);
+            if (ApplicationContext.getContext().getPlayerShipsHit() == 3){
                 makeToast("You have lost the game!");
-                ApplicationContext.getContext().setResult(finalScore);
-                gameHasFinished = true;
+                ApplicationContext.getContext().setGameHasFinished(true);
             }
         }
         else{
@@ -266,11 +294,10 @@ public class Fields extends AppCompatActivity {
     private boolean shootAtComputer(int x, int y){
         computerField[x][y].isHit = true;
         if(computerField[x][y].hasShip){
-            computerShipsHit++;
-            if (computerShipsHit == 3){
+            ApplicationContext.getContext().setComputerShipsHit(ApplicationContext.getContext().getComputerShipsHit()+1);
+            if (ApplicationContext.getContext().getComputerShipsHit() == 3){
                 makeToast("Congratulations!\n You have won the game!");
-                ApplicationContext.getContext().setResult(finalScore);
-                gameHasFinished = true;
+                ApplicationContext.getContext().setGameHasFinished(true);
                 return true;
             }
             return true;
@@ -302,6 +329,27 @@ public class Fields extends AppCompatActivity {
         return false;
     }
 
+    private void backToMain(){
+        Intent intent = new Intent(this, Categories.class);
+        startActivity(intent);
+    }
+
+    private void goToAsk(){
+        Intent intent = new Intent(this, Ask.class);
+        startActivity(intent);
+    }
+
+    private void makeToast(String text){
+        Toast.makeText(getApplicationContext(),text, Toast.LENGTH_SHORT).show();
+    }
+
+    public Cell[][] getPlayerField() {
+        return playerField;
+    }
+
+    public Cell[][] getComputerField() {
+        return computerField;
+    }
 }
 
 

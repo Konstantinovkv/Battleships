@@ -1,14 +1,24 @@
 package com.example.battleships_0.context;
 
 import com.example.battleships_0.Cell;
+import com.example.battleships_0.Fields;
 
 public class ApplicationContext {
 
+    private Integer playerShipsHit = 0;
+    private Integer computerShipsHit = 0;
+    private Cell[][] playerField;
+    private Integer result = 0;
+    private boolean isWinner;
+    private boolean gameHasStarted;
+    private Fields fields;
+    private boolean gameHasFinished;
+
     private String category;
     private int question;
-    private Cell[][] playerField;
-    private Integer result;
-    private boolean isWinner;
+
+
+
     private static ApplicationContext context = new ApplicationContext();
 
     private ApplicationContext() {
@@ -56,5 +66,45 @@ public class ApplicationContext {
 
     public void setWinner(boolean winner) {
         isWinner = winner;
+    }
+
+    public boolean isGameHasStarted() {
+        return gameHasStarted;
+    }
+
+    public void setGameHasStarted(boolean gameHasStarted) {
+        this.gameHasStarted = gameHasStarted;
+    }
+
+    public Fields getFields() {
+        return fields;
+    }
+
+    public void setFields(Fields fields) {
+        this.fields = fields;
+    }
+
+    public boolean isGameHasFinished() {
+        return gameHasFinished;
+    }
+
+    public void setGameHasFinished(boolean gameHasFinished) {
+        this.gameHasFinished = gameHasFinished;
+    }
+
+    public Integer getPlayerShipsHit() {
+        return playerShipsHit;
+    }
+
+    public void setPlayerShipsHit(Integer playerShipsHit) {
+        this.playerShipsHit = playerShipsHit;
+    }
+
+    public Integer getComputerShipsHit() {
+        return computerShipsHit;
+    }
+
+    public void setComputerShipsHit(Integer computerShipsHit) {
+        this.computerShipsHit = computerShipsHit;
     }
 }
