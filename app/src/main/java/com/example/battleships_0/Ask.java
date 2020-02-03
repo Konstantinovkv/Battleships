@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.battleships_0.context.ApplicationContext;
 import com.example.battleships_0.pojos.Question;
@@ -20,6 +21,7 @@ import java.io.InputStreamReader;
 public class Ask extends AppCompatActivity {
 
     private  String fileName = ".txt";
+    private Integer correctAnswer;
 
     Button answerOne, answerTwo, answerThree;
 
@@ -30,7 +32,7 @@ public class Ask extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ask);
 
-        fileName = ApplicationContext.getContext().getCategory() + ApplicationContext.getContext().getQuestion()+fileName;
+        fileName = ApplicationContext.getContext().getCategory() + ApplicationContext.getContext().getNumberOfTurns()+fileName;
 
         question = findViewById(R.id.ask_question);
 
@@ -41,31 +43,42 @@ public class Ask extends AppCompatActivity {
         answerOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Do stuff
-                goToPlayerField();
-
+                answerClicker(1);
             }
         });
 
         answerTwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Do stuff
-                goToPlayerField();
-
+                answerClicker(2);
             }
         });
 
         answerThree.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Do stuff
-                goToPlayerField();
-
+                answerClicker(3);
             }
         });
 
         load();
+    }
+
+    private void answerClicker(int correct){
+        if(correctAnswer == correct){
+
+            if (ApplicationContext.getContext().getNumberOfTurns() < 4){
+                bulletAdder(1);
+            }
+            else{
+                bulletAdder(3);
+            }
+        }
+        goToFields();
+    }
+
+    private void bulletAdder(int x){
+        ApplicationContext.getContext().setNumberOfBullets(ApplicationContext.getContext().getNumberOfBullets()+x);
     }
 
     public void load(){
@@ -88,6 +101,7 @@ public class Ask extends AppCompatActivity {
             answerOne.setText(quObj.getAnswers().get(0));
             answerTwo.setText(quObj.getAnswers().get(1));
             answerThree.setText(quObj.getAnswers().get(2));
+            correctAnswer = quObj.getCorrectAnswer();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -107,8 +121,12 @@ public class Ask extends AppCompatActivity {
         return objectMapper.readValue(json, Question.class);
     }
 
-    public void goToPlayerField(){
+    public void goToFields(){
         Intent intent = new Intent(this, Fields.class);
         startActivity(intent);
+    }
+
+    private void makeToast(String text){
+        Toast.makeText(getApplicationContext(),text, Toast.LENGTH_SHORT).show();
     }
 }

@@ -13,6 +13,7 @@ public class ApplicationContext {
     private Integer result = 0;
     private Integer numberOfBullets = 0;
     private Integer finalScore = 0;
+    private Integer numberOfTurns = 1;
 
     private boolean isWinner;
 
@@ -24,7 +25,9 @@ public class ApplicationContext {
     private String category;
     private Integer question = 1;
 
-
+    public void setQuestion(Integer question) {
+        this.question = question;
+    }
 
     private static ApplicationContext context = new ApplicationContext();
 
@@ -41,14 +44,6 @@ public class ApplicationContext {
 
     public String getCategory() {
         return category;
-    }
-
-    public int getQuestion() {
-        return question;
-    }
-
-    public void setQuestion(int question) {
-        this.question = question;
     }
 
     public Cell[][] getPlayerField() {
@@ -113,5 +108,33 @@ public class ApplicationContext {
 
     public void setComputerShipsHit(Integer computerShipsHit) {
         this.computerShipsHit = computerShipsHit;
+    }
+
+    public Integer getNumberOfBullets() {
+        return numberOfBullets;
+    }
+
+    public void setNumberOfBullets(Integer numberOfBullets) {
+        this.numberOfBullets = numberOfBullets;
+    }
+
+    public Integer getFinalScore() {
+        return finalScore;
+    }
+
+    public void setFinalScore(Integer finalScore) {
+        this.finalScore = finalScore;
+    }
+
+    public Integer getNumberOfTurns() {
+        return numberOfTurns;
+    }
+
+    public void setNumberOfTurns(Integer numberOfTurns) {
+        this.numberOfTurns = numberOfTurns;
+    }
+
+    public Integer getQuestion() {
+        return question;
     }
 }
