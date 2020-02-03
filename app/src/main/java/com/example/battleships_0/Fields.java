@@ -57,12 +57,11 @@ public class Fields extends AppCompatActivity {
             if (ApplicationContext.getContext().getNumberOfBullets() == 0){
                 shootAtPlayer();
             }
-            ApplicationContext.getContext().setNumberOfTurns(ApplicationContext.getContext().getNumberOfTurns()+1);
             ApplicationContext.getContext().setFields(this);
             if (ApplicationContext.getContext().isGameHasFinished()){
-                endGameClear();
                 Intent intent = new Intent(this, WinLose.class);
                 startActivity(intent);
+                endGameClear();
                 return;
             }
             return;
@@ -85,7 +84,6 @@ public class Fields extends AppCompatActivity {
             shootAtPlayer();
         }
         ApplicationContext.getContext().setFields(this);
-        ApplicationContext.getContext().setNumberOfTurns(ApplicationContext.getContext().getNumberOfTurns()+1);
     }
 
     private void repopulateField(){
@@ -204,9 +202,9 @@ public class Fields extends AppCompatActivity {
             fieldButton.setBackgroundColor(Color.rgb(189, 41, 127));
         }
         if (ApplicationContext.getContext().isGameHasFinished()){
-            endGameClear();
             Intent intent = new Intent(this, WinLose.class);
             startActivity(intent);
+            endGameClear();
             return;
         }
         if (ApplicationContext.getContext().getNumberOfBullets() > 0){
@@ -215,18 +213,24 @@ public class Fields extends AppCompatActivity {
         }
         shootAtPlayer();
         ApplicationContext.getContext().setFields(this);
+        if (ApplicationContext.getContext().isGameHasFinished()){
+            Intent intent = new Intent(this, WinLose.class);
+            startActivity(intent);
+            endGameClear();
+            return;
+        }
         goToAsk();
     }
 
-    private void endGameClear(){
+    public static void endGameClear(){
         ApplicationContext.getContext().setFields(null);
         ApplicationContext.getContext().setComputerShipsHit(0);
         ApplicationContext.getContext().setPlayerShipsHit(0);
         ApplicationContext.getContext().setGameHasFinished(false);
         ApplicationContext.getContext().setGameHasStarted(false);
-        ApplicationContext.getContext().setWinner(false);
         ApplicationContext.getContext().setNumberOfTurns(1);
         ApplicationContext.getContext().setQuestion(1);
+        ApplicationContext.getContext().setNumberOfBullets(0);
     }
 
     private void initializeButtons(){
@@ -329,6 +333,7 @@ public class Fields extends AppCompatActivity {
                     if (!playerField[i][j].hasShip && !playerField[i][j].isHit){
                         playerButtons[i][j].setBackgroundColor(Color.rgb(189, 41, 127));
                         playerField[i][j].isHit=true;
+                        ApplicationContext.getContext().setNumberOfTurns(ApplicationContext.getContext().getNumberOfTurns()+1);
                         return;
                     }
                 }
@@ -345,8 +350,10 @@ public class Fields extends AppCompatActivity {
                             makeToast("You have lost the game!");
                             ApplicationContext.getContext().setGameHasFinished(true);
                             ApplicationContext.getContext().setWinner(false);
+                            ApplicationContext.getContext().setNumberOfTurns(ApplicationContext.getContext().getNumberOfTurns()+1);
                             return;
                         }
+                        ApplicationContext.getContext().setNumberOfTurns(ApplicationContext.getContext().getNumberOfTurns()+1);
                         return;
                     }
                 }

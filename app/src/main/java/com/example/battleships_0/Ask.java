@@ -65,15 +65,25 @@ public class Ask extends AppCompatActivity {
     }
 
     private void answerClicker(int correct){
-        if(correctAnswer == correct){
-            if (ApplicationContext.getContext().getNumberOfTurns() < 4){
-                bulletAdder(1);
+        try {
+            if (correctAnswer == correct) {
+                if (ApplicationContext.getContext().getNumberOfTurns() < 4) {
+                    bulletAdder(1);
+                } else {
+                    bulletAdder(3);
+                }
+                // Make it glow green
+                makeToast("Correct answer.");
+            } else {
+                //make it glow red
+                makeToast("Wrong answer.");
             }
-            else{
-                bulletAdder(3);
-            }
+            goToFields();
         }
-        goToFields();
+        catch (NullPointerException e){
+            makeToast("There are no loaded questions, tell staff.");
+            goToPlay();
+        }
     }
 
     private void bulletAdder(int x){
@@ -124,6 +134,12 @@ public class Ask extends AppCompatActivity {
         Intent intent = new Intent(this, Fields.class);
         startActivity(intent);
     }
+
+    public void goToPlay(){
+        Intent intent = new Intent(this, Play.class);
+        startActivity(intent);
+    }
+
 
     private void makeToast(String text){
         Toast.makeText(getApplicationContext(),text, Toast.LENGTH_SHORT).show();

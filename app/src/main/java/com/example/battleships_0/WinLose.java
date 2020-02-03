@@ -58,7 +58,9 @@ public class WinLose extends AppCompatActivity {
     //(Default boolean is always false)
     private String getOutcomeMessage(){
         context = ApplicationContext.getContext();
-        return setOutcomeMessage(context.isWinner());
+        boolean winner = context.isWinner();
+        ApplicationContext.getContext().setWinner(false);
+        return setOutcomeMessage(winner);
     }
 
     //Write winner or loser message
