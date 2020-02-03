@@ -119,83 +119,71 @@ public class PlayerField extends AppCompatActivity {
         one.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (placeSub(0,0) || placeDestroyer(0,0)){
-                    one.setBackgroundColor(Color.rgb(98, 34, 121));
-                }
+                fieldClickMethods(0,0, one);
             }
         });
 
         two.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (placeSub(0,1) || placeDestroyer(0,1)){
-                    two.setBackgroundColor(Color.rgb(98, 34, 121));
-                }
+                fieldClickMethods(0,1, two);
             }
         });
 
         three.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (placeSub(0,2) || placeDestroyer(0,2)){
-                    three.setBackgroundColor(Color.rgb(98, 34, 121));
-                }
+                fieldClickMethods(0,2, three);
             }
         });
 
         four.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (placeSub(1,0) || placeDestroyer(1,0)){
-                    four.setBackgroundColor(Color.rgb(98, 34, 121));
-                }
+                fieldClickMethods(1,0, four);
             }
         });
 
         five.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (placeSub(1,1) || placeDestroyer(1,1)){
-                    five.setBackgroundColor(Color.rgb(98, 34, 121));
-                }
+                fieldClickMethods(1,1, five);
             }
         });
 
         six.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (placeSub(1,2) || placeDestroyer(1,2)){
-                    six.setBackgroundColor(Color.rgb(98, 34, 121));
-                }
+                fieldClickMethods(1,2,six);
             }
         });
 
         seven.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (placeSub(2,0) || placeDestroyer(2,0)){
-                    seven.setBackgroundColor(Color.rgb(98, 34, 121));
-                }
+                fieldClickMethods(2,0, seven);
             }
         });
 
         eight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (placeSub(2,1) || placeDestroyer(2,1)){
-                    eight.setBackgroundColor(Color.rgb(98, 34, 121));
-                }
+                fieldClickMethods(2,1, eight);
             }
         });
 
         nine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (placeSub(2,2) || placeDestroyer(2,2)){
-                    nine.setBackgroundColor(Color.rgb(98, 34, 121));
-                }
+                fieldClickMethods(2,2, nine);
             }
         });
+    }
+
+    private void fieldClickMethods(int x, int y, Button fieldButton){
+        if (placeSub(x,y) || placeDestroyer(x,y)){
+            fieldButton.setBackgroundColor(Color.rgb(98, 34, 121));
+        }
     }
 
     private void backToMain(){

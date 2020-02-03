@@ -128,15 +128,15 @@ public class Fields extends AppCompatActivity {
         });
     }
 
-    private void clickMethods(int x, int y, Button button){
+    private void clickMethods(int x, int y, Button fieldButton){
         if(checkIfHit(x,y) || gameHasFinished){
             return;
         }
         if (shootAtComputer(x,y)){
-            button.setBackgroundColor(Color.RED);
+            fieldButton.setBackgroundColor(Color.RED);
         }
         else{
-            button.setBackgroundColor(Color.rgb(189, 41, 127));
+            fieldButton.setBackgroundColor(Color.rgb(189, 41, 127));
         }
         if (gameHasFinished){
             return;
