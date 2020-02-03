@@ -2,8 +2,11 @@ package com.example.battleships_0;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.battleships_0.context.ApplicationContext;
@@ -11,11 +14,23 @@ import com.example.battleships_0.context.ApplicationContext;
 public class WinLose extends AppCompatActivity {
 
     private ApplicationContext context;
+    private Button restart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_win_lose);
+
+        //Set the restart button of the game
+        restart = findViewById(R.id.restart);
+
+        //Set functionality to the button to return to first screen
+        restart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToPlayScreen();
+            }
+        });
 
         //Get the screen size
         DisplayMetrics dm = new DisplayMetrics();
@@ -50,5 +65,10 @@ public class WinLose extends AppCompatActivity {
     private String setOutcomeMessage(boolean winner){
         return winner ? "You loose! Your ships have been destroyed." :
                 "You win! You destroyed your opponents ships first!";
+    }
+
+    private void goToPlayScreen(){
+        Intent intent = new Intent(this, Play.class);
+        startActivity(intent);
     }
 }
