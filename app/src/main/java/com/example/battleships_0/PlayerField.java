@@ -70,7 +70,7 @@ public class PlayerField extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (hasSub == true && hasDestOne == true && hasDestTwo == true || randomized == true) {
-                    goToFields();
+                    goToAsk();
                 }
                 else{
                     makeToast("You cannot submit without ships.");
@@ -191,8 +191,8 @@ public class PlayerField extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void goToFields(){
-        Intent intent = new Intent(this, Fields.class);
+    private void goToAsk(){
+        Intent intent = new Intent(this, Ask.class);
         startActivity(intent);
     }
 
