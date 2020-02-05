@@ -1,6 +1,4 @@
-package com.example.battleships_0;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.battleships;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.battleships_0.context.ApplicationContext;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class WinLose extends AppCompatActivity {
 
@@ -44,11 +42,15 @@ public class WinLose extends AppCompatActivity {
         getWindow().setLayout((int)(width *.8),(int) (height*.8));
 
         //Set the outcome of the game message
-        TextView tv = (TextView) findViewById(R.id.outcome_message);
+        TextView outcomeMessage = (TextView) findViewById(R.id.outcome_message);
         String message = getOutcomeMessage();
-        tv.setText(message);
+        outcomeMessage.setText(message);
 
-
+        //Set the final score of the game message
+        TextView finalScore = (TextView) findViewById(R.id.final_score_message);
+        int finalScoreInt = context.getFinalScore();
+        finalScore.setText("Your final score is " + finalScoreInt);
+        ApplicationContext.getContext().setFinalScore(0);
     }
 
     //Get the outcome of the game message*
@@ -59,16 +61,16 @@ public class WinLose extends AppCompatActivity {
     private String getOutcomeMessage(){
         context = ApplicationContext.getContext();
         boolean winner = context.isWinner();
-        ApplicationContext.getContext().setWinner(false);
         return setOutcomeMessage(winner);
     }
 
     //Write winner or loser message
     private String setOutcomeMessage(boolean winner){
-        return winner ?  "You win! You destroyed your opponents ships first!":
-                "You loose! Your ships have been destroyed.";
+        return winner ?  "You win!":
+                "You lose!";
     }
 
+    //Send player to Play screen (PlayActivity)
     private void goToPlayScreen(){
         Intent intent = new Intent(this, Play.class);
         startActivity(intent);

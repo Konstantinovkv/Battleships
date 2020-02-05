@@ -1,13 +1,17 @@
-package com.example.battleships_0;
+package com.example.battleships;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
-import com.example.battleships_0.context.ApplicationContext;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.Random;
 
 public class Fields extends AppCompatActivity {
@@ -20,16 +24,33 @@ public class Fields extends AppCompatActivity {
     private Button[][] computerButtons;
     private Button[][] playerButtons;
 
+    private Drawable submar, destro, sea, dedSub, dedBat, dedSea;
+
     private Button one, two, three, four, five, six, seven, eight, nine,
             back, next,
             pcOne, pcTwo, pcThree, pcFour, pcFive, pcSix, pcSeven, pcEight, pcNine;
+
+    private TextView bullets;
+
+    private ImageView rocket;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fields);
 
+        rocket = findViewById(R.id.rockett);
+        submar = getResources().getDrawable(R.drawable.submar);
+        destro = getResources().getDrawable(R.drawable.bat_ship);
+        sea = getResources().getDrawable(R.drawable.sea);
+        dedSub = getResources().getDrawable(R.drawable.ded_sub);
+        dedBat = getResources().getDrawable(R.drawable.ded_ship);
+        dedSea = getResources().getDrawable(R.drawable.miss);
+        rocket.setImageResource(R.drawable.rockettt);
+
         initializeButtons();
+        bullets = findViewById(R.id.number_bullets);
+        bullets.setText(ApplicationContext.getContext().getNumberOfBullets()+"");
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +80,10 @@ public class Fields extends AppCompatActivity {
             }
             ApplicationContext.getContext().setFields(this);
             if (ApplicationContext.getContext().isGameHasFinished()){
+                if (ApplicationContext.getContext().getNumberOfTurns() == 4){
+                    ApplicationContext.getContext().setBonus(true);
+                    goToAsk();
+                }
                 Intent intent = new Intent(this, WinLose.class);
                 startActivity(intent);
                 endGameClear();
@@ -103,19 +128,36 @@ public class Fields extends AppCompatActivity {
         for (int i = 0; i < playerField.length; i++) {
             for (int j = 0; j < playerField[i].length; j++) {
                 if (playerField[i][j].hasShip){
-                    playerButtons[i][j].setBackgroundColor(Color.rgb(98, 34, 121));
+                    if (playerField[i][j].isSub){
+                        playerButtons[i][j].setBackgroundDrawable(submar);
+                    }
+                    else{
+                        playerButtons[i][j].setBackgroundDrawable(destro);
+                    }
                 }
                 if (playerField[i][j].isHit && playerField[i][j].hasShip){
-                    playerButtons[i][j].setBackgroundColor(Color.RED);
+                    if (playerField[i][j].isSub){
+                        playerButtons[i][j].setBackgroundDrawable(dedSub);
+                    }
+                    else{
+                        playerButtons[i][j].setBackgroundDrawable(dedBat);
+                    }
                 }
                 if (playerField[i][j].isHit && !playerField[i][j].hasShip){
-                    playerButtons[i][j].setBackgroundColor(Color.rgb(189, 41, 127));
+                    playerButtons[i][j].setBackgroundDrawable(dedSea);
                 }
                 if (computerField[i][j].isHit && computerField[i][j].hasShip){
-                    computerButtons[i][j].setBackgroundColor(Color.RED);
+                    if (computerField[i][j].isSub){
+                        computerButtons[i][j].setBackgroundDrawable(dedSub);
+                    }
+                    else{
+                        computerButtons[i][j].setBackgroundDrawable(dedBat);
+                    }
+
+
                 }
                 if (computerField[i][j].isHit && !computerField[i][j].hasShip){
-                    computerButtons[i][j].setBackgroundColor(Color.rgb(189, 41, 127));
+                    computerButtons[i][j].setBackgroundDrawable(dedSea);
                 }
             }
 
@@ -196,10 +238,15 @@ public class Fields extends AppCompatActivity {
             return;
         }
         if (shootAtComputer(x,y)){
-            fieldButton.setBackgroundColor(Color.RED);
+            if (computerField[x][y].isSub){
+                fieldButton.setBackgroundDrawable(dedSub);
+            }
+            else {
+                fieldButton.setBackgroundDrawable(dedBat);
+            }
         }
         else{
-            fieldButton.setBackgroundColor(Color.rgb(189, 41, 127));
+            fieldButton.setBackgroundDrawable(dedSea);
         }
         if (ApplicationContext.getContext().isGameHasFinished()){
             Intent intent = new Intent(this, WinLose.class);
@@ -219,7 +266,6 @@ public class Fields extends AppCompatActivity {
             endGameClear();
             return;
         }
-        goToAsk();
     }
 
     public static void endGameClear(){
@@ -231,6 +277,7 @@ public class Fields extends AppCompatActivity {
         ApplicationContext.getContext().setNumberOfTurns(1);
         ApplicationContext.getContext().setQuestion(1);
         ApplicationContext.getContext().setNumberOfBullets(0);
+        ApplicationContext.getContext().setBonus(false);
     }
 
     private void initializeButtons(){
@@ -262,7 +309,12 @@ public class Fields extends AppCompatActivity {
         for (int i = 0; i < playerField.length; i++) {
             for (int j = 0; j <playerField[i].length ; j++) {
                 if (playerField[i][j].hasShip){
-                    playerButtons[i][j].setBackgroundColor(Color.rgb(98, 34, 121));
+                    if (playerField[i][j].isSub){
+                        playerButtons[i][j].setBackgroundDrawable(submar);
+                    }
+                    else{
+                        playerButtons[i][j].setBackgroundDrawable(destro);
+                    }
                 }
             }
         }
@@ -271,8 +323,8 @@ public class Fields extends AppCompatActivity {
     private void buttonColourSetter(){
         for (int i = 0; i < computerField.length; i++) {
             for (int j = 0; j < computerField[i].length; j++) {
-                computerButtons[i][j].setBackgroundColor(Color.rgb(61,108,180));
-                playerButtons[i][j].setBackgroundColor(Color.rgb(61,108,180));
+                playerButtons[i][j].setBackgroundDrawable(sea);
+                computerButtons[i][j].setBackgroundDrawable(sea);
             }
         }
     }
@@ -291,39 +343,48 @@ public class Fields extends AppCompatActivity {
         int x = randomNum.nextInt(3);
         int y = randomNum.nextInt(3);
         computerField[x][y].hasShip = true;
+        computerField[x][y].isSub = true;
+    }
+
+    private boolean checkNeighbour (int positionX, int positionY) {
+        if (positionX >= 2 || positionY >= 2 || positionX < 0 || positionY < 0) return false;
+
+        if (!computerField[positionX][positionY].hasShip &&
+            !computerField[positionX][positionY].isHit) {
+
+            computerField[positionX][positionY].hasShip = true;
+            return true;
+        }
+        return false;
+    }
+    private boolean assignShip(int positionX, int positionY) {
+        boolean hasFreeNeighbour =
+            checkNeighbour(positionX + 1, positionY) ||
+            checkNeighbour(positionX, positionY + 1) ||
+            checkNeighbour(positionX - 1, positionY) ||
+            checkNeighbour(positionX, positionY - 1);
+
+        if (hasFreeNeighbour) {
+            computerField[positionX][positionY].hasShip = true;
+
+            return true;
+        }
+
+        return false;
     }
 
     private boolean placeSecondShip(){
-        int x = randomNum.nextInt(3);
-        int y = randomNum.nextInt(3);
+        boolean hasPlacedSecondShip = false;
 
-        if (!computerField[x][y].hasShip && !computerField[x][y].isHit) {
-            if (x + 1 <= 2) {
-                if (!computerField[x + 1][y].hasShip && !computerField[x + 1][y].isHit) {
-                    computerField[x][y].hasShip= true;
-                    computerField[x+1][y].hasShip = true;
-                }
-            }
-            else if (x - 1 >= 0) {
-                if (!computerField[x - 1][y].hasShip && !computerField[x - 1][y].isHit) {
-                    computerField[x][y].hasShip= true;
-                    computerField[x-1][y].hasShip = true;
-                }
-            }
-            else if (y + 1 <= 2) {
-                if (!computerField[x][y+1].hasShip && !computerField[x][y+1].isHit) {
-                    computerField[x][y].hasShip= true;
-                    computerField[x][y+1].hasShip = true;
-                }
-            }
-            else if (y - 1 >= 0) {
-                if (!computerField[x][y-1].hasShip && !computerField[x][y-1].isHit) {
-                    computerField[x][y].hasShip= true;
-                    computerField[x][y-1].hasShip = true;
+        for (int row = 0; row < 3 ; row++) {
+            for (int col = 0; col < 3 && !hasPlacedSecondShip; col++) {
+                if (!computerField[row][col].hasShip && !computerField[row][col].isHit) {
+                    hasPlacedSecondShip = assignShip(row, col);
                 }
             }
         }
-        return false;
+
+        return hasPlacedSecondShip;
     }
 
     private void shootAtPlayer(){
@@ -331,7 +392,7 @@ public class Fields extends AppCompatActivity {
             for (int i = 0; i < playerField.length; i++) {
                 for (int j = 0; j < playerField[i].length; j++) {
                     if (!playerField[i][j].hasShip && !playerField[i][j].isHit){
-                        playerButtons[i][j].setBackgroundColor(Color.rgb(189, 41, 127));
+                        playerButtons[i][j].setBackgroundDrawable(dedSea);
                         playerField[i][j].isHit=true;
                         ApplicationContext.getContext().setNumberOfTurns(ApplicationContext.getContext().getNumberOfTurns()+1);
                         return;
@@ -343,7 +404,12 @@ public class Fields extends AppCompatActivity {
             for (int i = 0; i < playerField.length; i++) {
                 for (int j = 0; j < playerField[i].length; j++) {
                     if (playerField[i][j].hasShip && !playerField[i][j].isHit){
-                        playerButtons[i][j].setBackgroundColor(Color.RED);
+                        if (playerField[i][j].isSub){
+                            playerButtons[i][j].setBackgroundDrawable(dedSub);
+                        }
+                        else {
+                            playerButtons[i][j].setBackgroundDrawable(dedBat);
+                        }
                         ApplicationContext.getContext().setPlayerShipsHit(ApplicationContext.getContext().getPlayerShipsHit()+1);
                         playerField[i][j].isHit=true;
                         if (ApplicationContext.getContext().getPlayerShipsHit() == 3){
@@ -363,9 +429,11 @@ public class Fields extends AppCompatActivity {
 
     private boolean shootAtComputer(int x, int y){
         ApplicationContext.getContext().setNumberOfBullets(ApplicationContext.getContext().getNumberOfBullets()-1);
+        bullets.setText(ApplicationContext.getContext().getNumberOfBullets()+"");
         computerField[x][y].isHit = true;
         if(computerField[x][y].hasShip){
             ApplicationContext.getContext().setComputerShipsHit(ApplicationContext.getContext().getComputerShipsHit()+1);
+            ApplicationContext.getContext().setResult(ApplicationContext.getContext().getResult()+1);
             if (ApplicationContext.getContext().getComputerShipsHit() == 3){
                 makeToast("Congratulations!\n You have won the game!");
                 ApplicationContext.getContext().setGameHasFinished(true);

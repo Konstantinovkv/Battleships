@@ -1,12 +1,12 @@
-package com.example.battleships_0;
+package com.example.battleships;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.battleships_0.context.ApplicationContext;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class AdminCategories extends AppCompatActivity {
 
@@ -73,9 +73,23 @@ public class AdminCategories extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                backToMain();
+                backToPlay();
             }
         });
+        buttonColorSetter();
+    }
+
+    public void buttonColorSetter(){
+        dev.setBackgroundColor(Color.rgb(61, 108, 180));
+        dev.setBackgroundResource(R.drawable.buttonround);
+        devops.setBackgroundColor(Color.rgb(61, 108, 180));
+        devops.setBackgroundResource(R.drawable.buttonround);
+        qa.setBackgroundColor(Color.rgb(61, 108, 180));
+        qa.setBackgroundResource(R.drawable.buttonround);
+        ba.setBackgroundColor(Color.rgb(61, 108, 180));
+        ba.setBackgroundResource(R.drawable.buttonround);
+        delivery.setBackgroundColor(Color.rgb(61, 108, 180));
+        delivery.setBackgroundResource(R.drawable.buttonround);
     }
 
     public void goToQuestions(){
@@ -83,8 +97,8 @@ public class AdminCategories extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void backToMain(){
-        Intent intent = new Intent(this, Categories.class);
+    public void backToPlay(){
+        Intent intent = new Intent(this, Play.class);
         startActivity(intent);
     }
 }

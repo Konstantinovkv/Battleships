@@ -1,13 +1,14 @@
-package com.example.battleships_0;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.battleships;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import static com.example.battleships_0.Fields.endGameClear;
+import androidx.appcompat.app.AppCompatActivity;
+
+import static com.example.battleships.Fields.endGameClear;
 
 public class Play extends AppCompatActivity {
 
@@ -38,6 +39,7 @@ public class Play extends AppCompatActivity {
 
             }
         });
+        login.setBackgroundResource(R.drawable.android_button_pur);
     }
 
     public void goToCategories(){

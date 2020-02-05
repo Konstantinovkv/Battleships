@@ -1,4 +1,4 @@
-package com.example.battleships_0;
+package com.example.battleships;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,8 +9,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.battleships_0.context.ApplicationContext;
-import com.example.battleships_0.pojos.Question;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.BufferedReader;
@@ -202,3 +200,4 @@ public class AdminEditor extends AppCompatActivity {
         return objectMapper.readValue(json, Question.class);
     }
 }
+

@@ -1,4 +1,4 @@
-package com.example.battleships_0.pojos;
+package com.example.battleships;
 
 import java.util.List;
 

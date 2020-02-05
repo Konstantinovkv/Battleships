@@ -1,13 +1,15 @@
-package com.example.battleships_0;
+package com.example.battleships;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-import com.example.battleships_0.context.ApplicationContext;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -19,6 +21,8 @@ public class PlayerField extends AppCompatActivity {
     private Button one, two, three, four, five, six, seven, eight, nine, back, random, sub, destroyer, submit;
 
     private Button[][] playerButtons;
+
+    private Drawable submar, destro, sea, potential;
 
     private Cell[][] field = new Cell[3][3];
 
@@ -37,6 +41,11 @@ public class PlayerField extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.player_field);
+
+        submar = getResources().getDrawable(R.drawable.submar);
+        destro = getResources().getDrawable(R.drawable.bat_ship);
+        sea = getResources().getDrawable(R.drawable.sea);
+        potential = getResources().getDrawable(R.drawable.potental);
 
         makeToast("Choose a ship and place it on the field.");
 
@@ -181,9 +190,8 @@ public class PlayerField extends AppCompatActivity {
     }
 
     private void fieldClickMethods(int x, int y, Button fieldButton){
-        if (placeSub(x,y) || placeDestroyer(x,y)){
-            fieldButton.setBackgroundColor(Color.rgb(98, 34, 121));
-        }
+        placeSub(x,y, fieldButton);
+        placeDestroyer(x,y, fieldButton);
     }
 
     private void backToMain(){
@@ -209,12 +217,21 @@ public class PlayerField extends AppCompatActivity {
 
         back = findViewById(R.id.back_player_field);
 
+
+
+
+
         random = findViewById(R.id.random);
+        random.setBackgroundResource(R.drawable.android_button_pur);
 
         submit = findViewById(R.id.submit_ships);
+        submit.setBackgroundResource(R.drawable.android_button_pur);
 
         sub = findViewById(R.id.sub);
+        sub.setBackgroundResource(R.drawable.android_button_pur);
+
         destroyer = findViewById(R.id.destroyer);
+        destroyer.setBackgroundResource(R.drawable.android_button_pur);
     }
 
     private void initializeField(){
@@ -230,15 +247,17 @@ public class PlayerField extends AppCompatActivity {
         Toast.makeText(getApplicationContext(),text, Toast.LENGTH_SHORT).show();
     }
 
-    private boolean placeSub(int x, int y){
+    private boolean placeSub(int x, int y, Button button){
         if (checkOverlap(x,y)){
             return false;
         }
         else if (subClicked && !hasSub){
             field[x][y].hasShip = true;
+            field[x][y].isSub = true;
             hasSub = true;
             ApplicationContext.getContext().setPlayerField(field);
-            makeToast("You have placed a sub.");
+            makeToast("You have placed a submar.");
+            button.setBackgroundDrawable(submar);
             return true;
         }
         else if(subClicked && hasSub){
@@ -252,7 +271,7 @@ public class PlayerField extends AppCompatActivity {
         return false;
     }
 
-    private boolean placeDestroyer(int x, int y){
+    private boolean placeDestroyer(int x, int y, Button fieldButton){
         if (checkOverlap(x,y)){
             return false;
         }
@@ -263,6 +282,7 @@ public class PlayerField extends AppCompatActivity {
             coloring(224, 241, 242);
             ApplicationContext.getContext().setPlayerField(field);
             makeToast("Choose second coordinate from the highlight");
+            fieldButton.setBackgroundDrawable(destro);
             return true;
         }
         else if (destClicked && hasDestOne && !hasDestTwo){
@@ -274,6 +294,7 @@ public class PlayerField extends AppCompatActivity {
             hasDestTwo = true;
             ApplicationContext.getContext().setPlayerField(field);
             makeToast("You have placed a destroyer.");
+            fieldButton.setBackgroundDrawable(destro);
             return true;
         }
         else if(destClicked && hasDestOne && hasDestTwo){
@@ -337,14 +358,14 @@ public class PlayerField extends AppCompatActivity {
             if (field[x][y].hasShip){
                 continue;
             }
-            playerButtons[x][y].setBackgroundColor(Color.rgb(61,108,180));
+            playerButtons[x][y].setBackgroundDrawable(sea);
         }
     }
 
     private void buttonColourSetter(){
         for (int i = 0; i < playerButtons.length; i++) {
             for (int j = 0; j < playerButtons[i].length; j++) {
-                playerButtons[i][j].setBackgroundColor(Color.rgb(61,108,180));
+                playerButtons[i][j].setBackgroundDrawable(sea);
             }
         }
     }
@@ -362,6 +383,7 @@ public class PlayerField extends AppCompatActivity {
         int y = randomNum.nextInt(3);
         field[x][y].hasShip = true;
         hasSub = true;
+        playerButtons[x][y].setBackgroundDrawable(submar);
         ApplicationContext.getContext().setPlayerField(field);
         possibleButtons.add(new Point(x,y));
         placeSecondShip();
@@ -372,6 +394,7 @@ public class PlayerField extends AppCompatActivity {
         int y = randomNum.nextInt(3);
         if (!field[x][y].hasShip) {
             field[x][y].hasShip = true;
+            playerButtons[x][y].setBackgroundDrawable(destro);
             possibleButtons.add(new Point(x,y));
         }
         else{
@@ -379,21 +402,25 @@ public class PlayerField extends AppCompatActivity {
         }
         if (x + 1 <= 2 && !field[x+1][y].hasShip){
             field[x+1][y].hasShip = true;
+            playerButtons[x+1][y].setBackgroundDrawable(destro);
             possibleButtons.add(new Point(x+1,y));
         }
         else if (x - 1 >= 0 && !field[x-1][y].hasShip){
             field[x-1][y].hasShip = true;
+            playerButtons[x-1][y].setBackgroundDrawable(destro);
             possibleButtons.add(new Point(x-1,y));
         }
         else if (y + 1 <= 2 && !field[x][y+1].hasShip){
             field[x][y+1].hasShip = true;
+            playerButtons[x][y+1].setBackgroundDrawable(destro);
             possibleButtons.add(new Point(x,y+1));
         }
         else if (y - 1 >= 0 && !field[x][y-1].hasShip){
             field[x][y-1].hasShip = true;
+            playerButtons[x][y-1].setBackgroundDrawable(destro);
             possibleButtons.add(new Point(x,y-1));
         }
-        coloring(98,34,121);
+        //coloring(98,34,121);
         hasDestOne = true;
         hasDestTwo = false;
         ApplicationContext.getContext().setPlayerField(field);
@@ -406,7 +433,7 @@ public class PlayerField extends AppCompatActivity {
         for (int i = 0; i < possibleButtons.size(); i++) {
             x = possibleButtons.get(i).x;
             y = possibleButtons.get(i).y;
-            playerButtons[x][y].setBackgroundColor(Color.rgb(r, g, b));
+            playerButtons[x][y].setBackgroundDrawable(potential);
         }
     }
 

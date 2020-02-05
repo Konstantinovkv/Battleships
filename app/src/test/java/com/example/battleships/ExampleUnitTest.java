@@ -1,4 +1,4 @@
-package com.example.battleships_0;
+package com.example.battleships;
 
 import org.junit.Test;
 

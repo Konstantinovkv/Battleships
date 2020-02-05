@@ -1,9 +1,8 @@
-package com.example.battleships_0.context;
-
-import com.example.battleships_0.Cell;
-import com.example.battleships_0.Fields;
+package com.example.battleships;
 
 public class ApplicationContext {
+
+    private boolean bonus;
 
     private Integer playerShipsHit = 0;
     private Integer computerShipsHit = 0;
@@ -32,6 +31,14 @@ public class ApplicationContext {
     private static ApplicationContext context = new ApplicationContext();
 
     private ApplicationContext() {
+    }
+
+    public boolean isBonus() {
+        return bonus;
+    }
+
+    public void setBonus(boolean bonus) {
+        this.bonus = bonus;
     }
 
     public static ApplicationContext getContext(){

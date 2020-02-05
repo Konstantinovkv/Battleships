@@ -114,6 +114,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="278dp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
         android:text="Submit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -125,6 +127,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:layout_marginBottom="100dp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
         android:text="Random"
         app:layout_constraintBottom_toTopOf="@+id/submit_ships"
         app:layout_constraintStart_toStartOf="@+id/submit_ships"
@@ -132,11 +136,12 @@
 
     <Button
         android:id="@+id/back_player_field"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="75dp"
+        android:layout_height="71dp"
+        android:layout_marginBottom="80dp"
+        android:background="@drawable/left_arrow2_png"
         android:layout_marginStart="80dp"
         android:layout_marginTop="80dp"
-        android:text="Back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -146,6 +151,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:text="Sub"
+        android:textStyle="bold"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/cell_p_7"
         app:layout_constraintStart_toStartOf="@+id/cell_p_7"
         app:layout_constraintTop_toBottomOf="@+id/cell_p_7" />
@@ -156,6 +163,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:text="destroyer"
+        android:textStyle="bold"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/cell_p_9"
         app:layout_constraintStart_toStartOf="@+id/cell_p_8"
         app:layout_constraintTop_toBottomOf="@+id/cell_p_8" />

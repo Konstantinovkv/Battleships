@@ -1,16 +1,11 @@
-package com.example.battleships_0;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.battleships;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-
-import com.example.battleships_0.context.ApplicationContext;
-
-import java.util.ArrayList;
-import java.util.List;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class Questions extends AppCompatActivity {
 
@@ -32,8 +27,7 @@ public class Questions extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Do stuff
-                ApplicationContext.getContext().setQuestion(1);
-                goToAdminEditor();
+                ClickMethods(1);
             }
         });
 
@@ -41,8 +35,7 @@ public class Questions extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Do stuff
-                ApplicationContext.getContext().setQuestion(2);
-                goToAdminEditor();
+                ClickMethods(2);
             }
         });
 
@@ -50,8 +43,7 @@ public class Questions extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Do stuff
-                ApplicationContext.getContext().setQuestion(3);
-                goToAdminEditor();
+                ClickMethods(3);
             }
         });
 
@@ -59,8 +51,7 @@ public class Questions extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Do stuff
-                ApplicationContext.getContext().setQuestion(4);
-                goToAdminEditor();
+                ClickMethods(4);
             }
         });
 
@@ -68,8 +59,7 @@ public class Questions extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Do stuff
-                ApplicationContext.getContext().setQuestion(5);
-                goToAdminEditor();
+                ClickMethods(5);
             }
         });
 
@@ -79,6 +69,25 @@ public class Questions extends AppCompatActivity {
                 backToMain();
             }
         });
+        buttonColorSetter();
+    }
+
+    public void buttonColorSetter(){
+        questionOne.setBackgroundColor(Color.rgb(61, 108, 180));
+        questionOne.setBackgroundResource(R.drawable.buttonround);
+        questionTwo.setBackgroundColor(Color.rgb(61, 108, 180));
+        questionTwo.setBackgroundResource(R.drawable.buttonround);
+        questionThree.setBackgroundColor(Color.rgb(61, 108, 180));
+        questionThree.setBackgroundResource(R.drawable.buttonround);
+        questionFour.setBackgroundColor(Color.rgb(61, 108, 180));
+        questionFour.setBackgroundResource(R.drawable.buttonround);
+        questionFive.setBackgroundColor(Color.rgb(61, 108, 180));
+        questionFive.setBackgroundResource(R.drawable.buttonround);
+    }
+
+    private void ClickMethods(int question){
+        ApplicationContext.getContext().setQuestion(question);
+        goToAdminEditor();
     }
 
     public void backToMain(){

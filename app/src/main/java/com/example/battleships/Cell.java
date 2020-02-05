@@ -1,4 +1,4 @@
-package com.example.battleships_0;
+package com.example.battleships;
 
 public class Cell {
 
@@ -9,4 +9,5 @@ public class Cell {
     boolean hasShip;
     boolean isHit;
     int id;
+    boolean isSub;
 }

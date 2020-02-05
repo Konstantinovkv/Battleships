@@ -1,16 +1,15 @@
-package com.example.battleships_0;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.battleships;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.battleships_0.context.ApplicationContext;
-import com.example.battleships_0.pojos.Question;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.BufferedReader;
@@ -25,12 +24,16 @@ public class Ask extends AppCompatActivity {
 
     Button answerOne, answerTwo, answerThree;
 
-    TextView question;
+    TextView question, bonus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ask);
+
+        if (ApplicationContext.getContext().isBonus()){
+            bonus.setText("bonus question");
+        }
 
         fileName = ApplicationContext.getContext().getCategory() + ApplicationContext.getContext().getNumberOfTurns()+fileName;
 
@@ -39,6 +42,8 @@ public class Ask extends AppCompatActivity {
         answerOne = findViewById(R.id.ask_answer_1);
         answerTwo = findViewById(R.id.ask_answer_2);
         answerThree = findViewById(R.id.ask_answer_3);
+
+        bonus = findViewById(R.id.bonus_question);
 
         answerOne.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,16 +66,45 @@ public class Ask extends AppCompatActivity {
             }
         });
 
+        buttonColorSetter();
+
         load();
+    }
+
+    public void buttonColorSetter(){
+        answerOne.setBackgroundColor(Color.rgb(61, 108, 180));
+        answerOne.setBackgroundResource(R.drawable.buttonround);
+        answerTwo.setBackgroundColor(Color.rgb(61, 108, 180));
+        answerTwo.setBackgroundResource(R.drawable.buttonround);
+        answerThree.setBackgroundColor(Color.rgb(61, 108, 180));
+        answerThree.setBackgroundResource(R.drawable.buttonround);
     }
 
     private void answerClicker(int correct){
         try {
             if (correctAnswer == correct) {
+                int finalScore = ApplicationContext.getContext().getFinalScore();
                 if (ApplicationContext.getContext().getNumberOfTurns() < 4) {
                     bulletAdder(1);
                 } else {
                     bulletAdder(3);
+                }
+
+                System.out.println("turns: " + ApplicationContext.getContext().getNumberOfTurns());
+                switch(ApplicationContext.getContext().getNumberOfTurns()) {
+                    case 1:
+                    case 2:{
+                        ApplicationContext.getContext().setFinalScore(finalScore + 1);
+                        break;
+                    }
+                    case 3:
+                    case 4: {
+                        ApplicationContext.getContext().setFinalScore(finalScore + 2); break;
+                    }
+                    case 5: {
+                        ApplicationContext.getContext().setFinalScore(finalScore + 3);
+                        break;
+                    }
                 }
                 // Make it glow green
                 makeToast("Correct answer.");
@@ -82,7 +116,7 @@ public class Ask extends AppCompatActivity {
         }
         catch (NullPointerException e){
             makeToast("There are no loaded questions, tell staff.");
-            goToPlay();
+            goToAdminLogin();
         }
     }
 
@@ -111,6 +145,7 @@ public class Ask extends AppCompatActivity {
             answerTwo.setText(quObj.getAnswers().get(1));
             answerThree.setText(quObj.getAnswers().get(2));
             correctAnswer = quObj.getCorrectAnswer();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -135,8 +170,8 @@ public class Ask extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void goToPlay(){
-        Intent intent = new Intent(this, Play.class);
+    public void goToAdminLogin(){
+        Intent intent = new Intent(this, AdminLogin.class);
         startActivity(intent);
     }
 
