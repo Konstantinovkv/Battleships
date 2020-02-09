@@ -21,6 +21,7 @@ public class WinLose extends AppCompatActivity {
 
         //Set the restart button of the game
         restart = findViewById(R.id.restart);
+        restart.setBackgroundResource(R.drawable.android_button_pur);
 
         //Set functionality to the button to return to first screen
         restart.setOnClickListener(new View.OnClickListener() {
@@ -42,15 +43,15 @@ public class WinLose extends AppCompatActivity {
         getWindow().setLayout((int)(width *.8),(int) (height*.8));
 
         //Set the outcome of the game message
-        TextView outcomeMessage = (TextView) findViewById(R.id.outcome_message);
+        TextView outcomeMessage = findViewById(R.id.outcome_message);
         String message = getOutcomeMessage();
         outcomeMessage.setText(message);
 
         //Set the final score of the game message
         TextView finalScore = (TextView) findViewById(R.id.final_score_message);
-        int finalScoreInt = context.getFinalScore();
+        int finalScoreInt = context.finalScore;
         finalScore.setText("Your final score is " + finalScoreInt);
-        ApplicationContext.getContext().setFinalScore(0);
+        context.finalScore = 0;
     }
 
     //Get the outcome of the game message*
@@ -60,7 +61,7 @@ public class WinLose extends AppCompatActivity {
     //(Default boolean is always false)
     private String getOutcomeMessage(){
         context = ApplicationContext.getContext();
-        boolean winner = context.isWinner();
+        boolean winner = context.isWinner;
         return setOutcomeMessage(winner);
     }
 

@@ -1,7 +1,6 @@
 package com.example.battleships;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,7 +11,8 @@ import static com.example.battleships.Fields.endGameClear;
 
 public class Play extends AppCompatActivity {
 
-    Button play, login;
+    private Button play, login;
+    ApplicationContext context = ApplicationContext.getContext();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

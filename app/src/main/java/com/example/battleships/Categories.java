@@ -1,18 +1,17 @@
 package com.example.battleships;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import static com.example.battleships.Fields.endGameClear;
 
 public class Categories extends AppCompatActivity {
 
     Button dev, devops, qa, ba, delivery, back;
+
+    ApplicationContext context = ApplicationContext.getContext();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +33,7 @@ public class Categories extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Do stuff
-                ApplicationContext.getContext().setCategory("dev");
+                context.category = "dev";
                 goToAsk();
 
             }
@@ -44,7 +43,7 @@ public class Categories extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Do stuff
-                ApplicationContext.getContext().setCategory("devops");
+                context.category = "devops";
                 goToAsk();
             }
         });
@@ -53,7 +52,7 @@ public class Categories extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Do stuff
-                ApplicationContext.getContext().setCategory("qa");
+                context.category = "qa";
                 goToAsk();
             }
         });
@@ -62,7 +61,7 @@ public class Categories extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Do stuff
-                ApplicationContext.getContext().setCategory("ba");
+                context.category = "ba";
                 goToAsk();
             }
         });
@@ -71,7 +70,7 @@ public class Categories extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Do stuff
-                ApplicationContext.getContext().setCategory("delivery");
+                context.category = "delivery";
                 goToAsk();
             }
         });
@@ -82,20 +81,13 @@ public class Categories extends AppCompatActivity {
                 goToFront();
             }
         });
-        //REMOVE - for testing purposes
-//        this.goToWinLose();
     }
 
     public void buttonColorSetter(){
-        dev.setBackgroundColor(Color.rgb(61, 108, 180));
         dev.setBackgroundResource(R.drawable.buttonround);
-        devops.setBackgroundColor(Color.rgb(61, 108, 180));
         devops.setBackgroundResource(R.drawable.buttonround);
-        qa.setBackgroundColor(Color.rgb(61, 108, 180));
         qa.setBackgroundResource(R.drawable.buttonround);
-        ba.setBackgroundColor(Color.rgb(61, 108, 180));
         ba.setBackgroundResource(R.drawable.buttonround);
-        delivery.setBackgroundColor(Color.rgb(61, 108, 180));
         delivery.setBackgroundResource(R.drawable.buttonround);
     }
 

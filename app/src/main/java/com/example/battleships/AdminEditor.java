@@ -39,13 +39,15 @@ public class AdminEditor extends AppCompatActivity {
 
     private RadioButton correct, correctOne, correctTwo, correctThree;
 
+    static ApplicationContext context = ApplicationContext.getContext();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_editor);
 
-        category = ApplicationContext.getContext().getCategory();
-        questionID = ApplicationContext.getContext().getQuestion();
+        category = context.category;
+        questionID = context.question;
 
         fileName = category+questionID+fileName;
 
@@ -63,6 +65,7 @@ public class AdminEditor extends AppCompatActivity {
         load();
 
         submit = findViewById(R.id.submit_form);
+        submit.setBackgroundResource(R.drawable.android_button_pur);
         back = findViewById(R.id.back_admin_editor);
 
         submit.setOnClickListener(new View.OnClickListener() {

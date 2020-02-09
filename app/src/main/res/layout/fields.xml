@@ -206,6 +206,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="80dp"
+        android:textColor="@color/white"
         android:text=" next question"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -218,16 +219,16 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
         android:layout_marginEnd="80dp"
-        android:textSize="30dp"
+        android:textSize="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/rockett"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="100dp"
+        android:layout_width="58dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="88dp"
+        android:layout_marginEnd="104dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/rockettt" />

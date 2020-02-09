@@ -1,7 +1,6 @@
 package com.example.battleships;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 public class Questions extends AppCompatActivity {
 
     Button questionOne, questionTwo, questionThree, questionFour, questionFive, back;
+
+    ApplicationContext context = ApplicationContext.getContext();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,20 +74,15 @@ public class Questions extends AppCompatActivity {
     }
 
     public void buttonColorSetter(){
-        questionOne.setBackgroundColor(Color.rgb(61, 108, 180));
         questionOne.setBackgroundResource(R.drawable.buttonround);
-        questionTwo.setBackgroundColor(Color.rgb(61, 108, 180));
         questionTwo.setBackgroundResource(R.drawable.buttonround);
-        questionThree.setBackgroundColor(Color.rgb(61, 108, 180));
         questionThree.setBackgroundResource(R.drawable.buttonround);
-        questionFour.setBackgroundColor(Color.rgb(61, 108, 180));
         questionFour.setBackgroundResource(R.drawable.buttonround);
-        questionFive.setBackgroundColor(Color.rgb(61, 108, 180));
         questionFive.setBackgroundResource(R.drawable.buttonround);
     }
 
     private void ClickMethods(int question){
-        ApplicationContext.getContext().setQuestion(question);
+        context.question = question;
         goToAdminEditor();
     }
 
