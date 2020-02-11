@@ -39,6 +39,8 @@ public class PlayerField extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.player_field);
 
+        context.finalScore = 0;
+
         submar = getResources().getDrawable(R.drawable.submar);
         destro = getResources().getDrawable(R.drawable.bat_ship);
         sea = getResources().getDrawable(R.drawable.sea);

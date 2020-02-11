@@ -18,6 +18,8 @@ public class Categories extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.categories);
 
+        context.finalScore = 0;
+
         dev = findViewById(R.id.category_1);
         devops = findViewById(R.id.category_2);
         qa = findViewById(R.id.category_3);

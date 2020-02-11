@@ -19,6 +19,8 @@ public class Play extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.play);
 
+        context.finalScore = 0;
+
         endGameClear();
 
         play = findViewById(R.id.play);
