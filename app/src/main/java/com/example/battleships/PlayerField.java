@@ -5,10 +5,9 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -32,12 +31,18 @@ public class PlayerField extends AppCompatActivity {
     private boolean subClicked;
     private boolean destClicked;
 
+    private TextView legend;
+
     private List<Point> possibleButtons = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.player_field);
+
+        legend = findViewById(R.id.legend_pf);
+
+        legend.setText("Place 1 sub and 2 destroyers on the field or click RANDOM. Destroyers must be next to each other.");
 
         context.finalScore = 0;
 
@@ -49,8 +54,6 @@ public class PlayerField extends AppCompatActivity {
 
 
         context = ApplicationContext.getContext();
-
-        makeToast("Choose a ship and place it on the field.");
 
         initializeField();
 
@@ -95,6 +98,14 @@ public class PlayerField extends AppCompatActivity {
         sub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (hasSub && !randomized){
+                    makeToast("You cannot place any more subs.");
+                    return;
+                }
+                if (subClicked && !randomized){
+                    return;
+                }
+                legend.setText("Click on a square to place your sub.");
                 subClicked = true;
                 destClicked = false;
                 checkRandomized();
@@ -107,6 +118,14 @@ public class PlayerField extends AppCompatActivity {
         destroyer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (hasDestOne && hasDestTwo && !randomized){
+                    makeToast("You cannot place any more destroyers.");
+                    return;
+                }
+                if (destClicked && !randomized){
+                    return;
+                }
+                legend.setText("Click on a square to place your destroyers.");
                 destClicked = true;
                 subClicked = false;
                 checkRandomized();
@@ -253,7 +272,15 @@ public class PlayerField extends AppCompatActivity {
             context.playerField[x][y].hasShip = true;
             context.playerField[x][y].isSub = true;
             hasSub = true;
-            makeToast("You have placed a submar.");
+            if (!hasDestOne && !hasDestTwo){
+                legend.setText("You have placed a sub, now place your destroyers.");
+            }
+            if(hasDestOne && !hasDestTwo){
+                legend.setText("You have placed a sub, now place your second destroyer on one of the highlighted squares.");
+            }
+            if(hasDestOne && hasDestTwo){
+                legend.setText("You have placed all of your ships. Click SUBMIT to play.");
+            }
             subButton(x,y);
             sub.setBackgroundResource(R.drawable.android_button_pur);
             return true;
@@ -278,7 +305,7 @@ public class PlayerField extends AppCompatActivity {
             hasDestOne = true;
             positionChecker(x,y);
             coloring(224, 241, 242);
-            makeToast("Choose second coordinate from the highlight");
+            legend.setText("You have placed a destroyer, now place your second destroyer on one of the highlighted squares.");
             destroyerButton(x,y);
             return true;
         }
@@ -289,7 +316,12 @@ public class PlayerField extends AppCompatActivity {
             destPossibilitiesRevert();
             context.playerField[x][y].hasShip = true;
             hasDestTwo = true;
-            makeToast("You have placed a destroyer.");
+            if(hasSub && hasDestOne){
+                legend.setText("You have placed all of your ships. Click SUBMIT to play.");
+            }
+            if(!hasSub && hasDestOne){
+                legend.setText("You have placed both destroyers. Now place your sub");
+            }
             destroyerButton(x,y);
             destroyer.setBackgroundResource(R.drawable.android_button_pur);
             return true;
@@ -371,6 +403,7 @@ public class PlayerField extends AppCompatActivity {
         destroyer.setBackgroundResource(R.drawable.android_button_pur);
         sub.setBackgroundResource(R.drawable.android_button_pur);
         randomized = true;
+        legend.setText("You have placed your ships ar random. Click SUBMIT to play.");
         buttonColourSetter();
         possibleButtons.clear();
         for (int i = 0; i < context.playerField.length; i++) {

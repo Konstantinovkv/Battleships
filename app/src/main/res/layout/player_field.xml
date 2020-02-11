@@ -168,4 +168,16 @@
         app:layout_constraintEnd_toEndOf="@+id/cell_p_9"
         app:layout_constraintStart_toStartOf="@+id/cell_p_8"
         app:layout_constraintTop_toBottomOf="@+id/cell_p_8" />
+
+    <TextView
+        android:id="@+id/legend_pf"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="40dp"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/cell_p_2"
+        app:layout_constraintEnd_toEndOf="@+id/cell_p_3"
+        app:layout_constraintStart_toStartOf="@+id/cell_p_1"
+        app:layout_constraintTop_toTopOf="@+id/back_player_field" />
 </androidx.constraintlayout.widget.ConstraintLayout>

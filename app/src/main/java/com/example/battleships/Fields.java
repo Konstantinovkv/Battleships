@@ -23,7 +23,7 @@ public class Fields extends AppCompatActivity {
             back, next,
             pcOne, pcTwo, pcThree, pcFour, pcFive, pcSix, pcSeven, pcEight, pcNine;
 
-    private TextView bullets;
+    private TextView bullets, legend;
 
     @Override
     public void onBackPressed(){
@@ -46,6 +46,7 @@ public class Fields extends AppCompatActivity {
 
         initializeButtons();
         bullets = findViewById(R.id.number_bullets);
+        legend = findViewById(R.id.legend);
         bullets.setText(context.numberOfBullets+"");
         next.setBackgroundResource(R.drawable.android_button_pur);
 
@@ -67,6 +68,10 @@ public class Fields extends AppCompatActivity {
             }
         });
 
+        if(context.numberOfBullets > 0) {
+            legend.setText("Shoot at the computer.");
+        }
+
         if (context.gameHasStarted){
             repopulateField();
             if (context.numberOfTurns > 2){
@@ -82,6 +87,10 @@ public class Fields extends AppCompatActivity {
                 return;
             }
             return;
+        }
+
+        if(context.numberOfBullets > 0) {
+            legend.setText("Shoot at the computer's field by tapping one of his squares.");
         }
 
         makePcArr();
@@ -202,7 +211,7 @@ public class Fields extends AppCompatActivity {
 
     private void clickMethods(int x, int y){
         if (context.numberOfBullets == 0 ){
-            makeToast("You need to answer questions correctly for bullets.");
+            makeToast("You need to answer questions correctly for rockets.");
             return;
         }
         if(checkIfHit(x,y) || context.gameHasFinished){
@@ -372,6 +381,7 @@ public class Fields extends AppCompatActivity {
                         dedSeaPlayerButtons(i,j);
                         context.playerField[i][j].isHit=true;
                         context.numberOfTurns++;
+                        legend.setText("The computer shot at you and missed. Click next question for more rockets.");
                         return;
                     }
                 }
@@ -383,9 +393,11 @@ public class Fields extends AppCompatActivity {
                     if (context.playerField[i][j].hasShip && !context.playerField[i][j].isHit){
                         if (context.playerField[i][j].isSub){
                             dedSubPlayerButtons(i,j);
+                            legend.setText("The computer shot at you and hit a sub. Click next question for more rockets.");
                         }
                         else {
                             dedDestPlayerButton(i,j);
+                            legend.setText("The computer shot at you and hit a destroyer. Click next question for more rockets.");
                         }
                         context.playerShipsHit++;
                         context.playerField[i][j].isHit=true;
