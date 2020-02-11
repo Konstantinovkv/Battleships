@@ -224,6 +224,12 @@ public class Fields extends AppCompatActivity {
         }
         else{
             dedSeaComputerButtons(x,y);
+            if (context.numberOfTurns == 4 && context.gameHasFinished){
+                context.bonus = true;
+                context.numberOfTurns = 5;
+                goToAsk();
+                return;
+            }
         }
         if (context.gameHasFinished){
             Intent intent = new Intent(this, WinLose.class);

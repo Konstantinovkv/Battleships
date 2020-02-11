@@ -41,7 +41,7 @@ public class Ask extends AppCompatActivity {
         bulletAward = findViewById(R.id.bullet_award);
 
         if (context.bonus){
-            bonus.setText("bonus question");
+            bonus.setText("Bonus question");
         }
 
         answerOne.setOnClickListener(new View.OnClickListener() {
@@ -139,9 +139,9 @@ public class Ask extends AppCompatActivity {
             correctAnswer = quObj.getCorrectAnswer();
 
             if (context.numberOfTurns < 4) {
-                bulletAward.setText("A question for one rocket.");
+                bulletAward.setText("A question for one");
             } else {
-                bulletAward.setText("A question for three rockets.");
+                bulletAward.setText("A question for three");
             }
 
         } catch (IOException e) {

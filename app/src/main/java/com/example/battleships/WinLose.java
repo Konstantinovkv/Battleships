@@ -48,9 +48,8 @@ public class WinLose extends AppCompatActivity {
         outcomeMessage.setText(message);
 
         //Set the final score of the game message
-        TextView finalScore = (TextView) findViewById(R.id.final_score_message);
-        int finalScoreInt = context.finalScore;
-        finalScore.setText("Your final score is " + finalScoreInt);
+        TextView finalScore = findViewById(R.id.final_score_message);
+        finalScore.setText("Your final score is " + context.finalScore);
         context.finalScore = 0;
     }
 
