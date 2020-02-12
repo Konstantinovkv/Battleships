@@ -10,8 +10,9 @@
     <ScrollView
         android:id="@+id/scroll_ask_question"
         android:layout_width="500dp"
-        android:layout_height="278dp"
-        android:layout_marginTop="200dp"
+        android:layout_height="250dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="220dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -33,13 +34,14 @@
         android:id="@+id/ask_answer_1"
         android:layout_width="0dp"
         android:layout_height="100dp"
+        android:layout_marginStart="25dp"
         android:layout_marginTop="40dp"
         android:text="Button"
+        android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/scroll_ask_question"
-        app:layout_constraintStart_toStartOf="@+id/scroll_ask_question"
+        app:layout_constraintStart_toStartOf="@+id/imageView4"
         app:layout_constraintTop_toBottomOf="@+id/scroll_ask_question" />
 
     <Button
@@ -97,9 +99,21 @@
         android:layout_width="77dp"
         android:layout_height="82dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginEnd="40dp"
         app:layout_constraintEnd_toEndOf="@+id/ask_answer_3"
         app:layout_constraintTop_toBottomOf="@+id/ask_answer_3"
-        app:srcCompat="@drawable/rockettt" />
+        app:srcCompat="@drawable/white_rocket" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="190dp"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintBottom_toTopOf="@+id/ask_answer_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/svetlo_border" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

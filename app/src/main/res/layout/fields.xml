@@ -235,13 +235,26 @@
 
     <TextView
         android:id="@+id/legend"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="293dp"
+        android:layout_height="138dp"
+        android:layout_marginStart="15dp"
         android:layout_marginBottom="40dp"
         android:textSize="23sp"
         app:layout_constraintBottom_toTopOf="@+id/cell_2"
         app:layout_constraintEnd_toEndOf="@+id/cell_3"
         app:layout_constraintStart_toStartOf="@+id/cell_1"
         app:layout_constraintTop_toTopOf="@+id/back_fields" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="337dp"
+        android:layout_height="231dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="50dp"
+        app:layout_constraintBottom_toBottomOf="@+id/legend"
+        app:layout_constraintEnd_toEndOf="@+id/legend"
+        app:layout_constraintStart_toStartOf="@+id/legend"
+        app:layout_constraintTop_toTopOf="@+id/legend"
+        app:srcCompat="@drawable/svetlo_border" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
