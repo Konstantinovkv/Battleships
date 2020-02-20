@@ -74,7 +74,7 @@ public class Fields extends AppCompatActivity {
 
         if (context.gameHasStarted){
             repopulateField();
-            if (context.numberOfTurns > 2){
+            if (context.numberOfTurns == 3){
                 placeSecondShip();
             }
             if (context.numberOfBullets == 0){
@@ -336,58 +336,57 @@ public class Fields extends AppCompatActivity {
         context.computerField[x][y].isSub = true;
     }
 
-    private boolean checkNeighbour (int positionX, int positionY) {
-        if (positionX >= 2 || positionY >= 2 || positionX < 0 || positionY < 0) {
+    private void placeSecondShip(){
+        int x = randomNum.nextInt(3);
+        int y = randomNum.nextInt(3);
+        if(checkNeighbour(x + 1, y)){
+            context.computerField[x][y].hasShip = true;
+            context.computerField[x+1][y].hasShip = true;
+        }
+        else if(checkNeighbour(x, y + 1)){
+            context.computerField[x][y].hasShip = true;
+            context.computerField[x][y+1].hasShip = true;
+        }
+        else if(checkNeighbour(x - 1, y)){
+            context.computerField[x][y].hasShip = true;
+            context.computerField[x-1][y].hasShip = true;
+        }
+        else if(checkNeighbour(x, y - 1)){
+            context.computerField[x][y].hasShip = true;
+            context.computerField[x][y-1].hasShip = true;
+        }
+        else {
+            placeSecondShip();
+        }
+    }
+
+    private boolean checkNeighbour (int x, int y) {
+        if (x >= 2 || y >= 2 || x < 0 || y < 0) {
             return false;
         }
-        if (!context.computerField[positionX][positionY].hasShip &&
-            !context.computerField[positionX][positionY].isHit) {
-            context.computerField[positionX][positionY].hasShip = true;
+        if (!context.computerField[x][y].hasShip &&
+                !context.computerField[x][y].isHit) {
             return true;
         }
         return false;
     }
 
-    private boolean assignShip(int positionX, int positionY) {
-        boolean hasFreeNeighbour =
-            checkNeighbour(positionX + 1, positionY) ||
-            checkNeighbour(positionX, positionY + 1) ||
-            checkNeighbour(positionX - 1, positionY) ||
-            checkNeighbour(positionX, positionY - 1);
-
-        if (hasFreeNeighbour) {
-            context.computerField[positionX][positionY].hasShip = true;
-            return true;
+    private void miss(){
+        int x = randomNum.nextInt(3);
+        int y = randomNum.nextInt(3);
+        if (!context.playerField[x][y].hasShip && !context.playerField[x][y].isHit){
+            dedSeaPlayerButtons(x,y);
+            context.playerField[x][y].isHit=true;
+            context.numberOfTurns++;
+            legend.setText("The computer shot at you and missed. Click next question for more rockets.");
+            return;
         }
-        return false;
-    }
-
-    private boolean placeSecondShip(){
-        boolean hasPlacedSecondShip = false;
-
-        for (int row = 0; row < 3 ; row++) {
-            for (int col = 0; col < 3 && !hasPlacedSecondShip; col++) {
-                if (!context.computerField[row][col].hasShip && !context.computerField[row][col].isHit) {
-                    hasPlacedSecondShip = assignShip(row, col);
-                }
-            }
-        }
-        return hasPlacedSecondShip;
+        miss();
     }
 
     private void shootAtPlayer(){
-        if (context.numberOfTurns < 3){
-            for (int i = 0; i < context.playerField.length; i++) {
-                for (int j = 0; j < context.playerField[i].length; j++) {
-                    if (!context.playerField[i][j].hasShip && !context.playerField[i][j].isHit){
-                        dedSeaPlayerButtons(i,j);
-                        context.playerField[i][j].isHit=true;
-                        context.numberOfTurns++;
-                        legend.setText("The computer shot at you and missed. Click next question for more rockets.");
-                        return;
-                    }
-                }
-            }
+        if (context.numberOfTurns == 1 || context.numberOfTurns == 3){
+            miss();
         }
         else{
             for (int i = 0; i < context.playerField.length; i++) {
