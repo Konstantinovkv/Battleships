@@ -2,6 +2,8 @@ package com.example.battleships;
 
 import android.widget.Button;
 
+import java.util.HashSet;
+
 public class ApplicationContext {
 
     boolean bonus;
@@ -18,6 +20,8 @@ public class ApplicationContext {
     Integer numberOfBullets = 0;
     Integer finalScore = 0;
     Integer numberOfTurns = 1;
+    HashSet<Integer> askedEasyQuestions = new HashSet<>();
+    HashSet<Integer> askedHardQuestions = new HashSet<>();
 
     boolean isWinner;
 

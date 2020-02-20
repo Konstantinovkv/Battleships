@@ -9,7 +9,7 @@ import static com.example.battleships.Fields.endGameClear;
 
 public class Categories extends AppCompatActivity {
 
-    Button dev, devops, qa, ba, delivery, back;
+    Button dev, devops, qa, ba, logic, generalOne, generalTwo, back;
 
     ApplicationContext context = ApplicationContext.getContext();
 
@@ -24,7 +24,9 @@ public class Categories extends AppCompatActivity {
         devops = findViewById(R.id.category_2);
         qa = findViewById(R.id.category_3);
         ba = findViewById(R.id.category_4);
-        delivery = findViewById(R.id.category_5);
+        logic = findViewById(R.id.category_5);
+        generalOne = findViewById(R.id.category_6);
+        generalTwo = findViewById(R.id.category_7);
         back = findViewById(R.id.back_categories);
 
         buttonColorSetter();
@@ -68,11 +70,29 @@ public class Categories extends AppCompatActivity {
             }
         });
 
-        delivery.setOnClickListener(new View.OnClickListener() {
+        logic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Do stuff
-                context.category = "delivery";
+                context.category = "logic";
+                goToAsk();
+            }
+        });
+
+        generalOne.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Do stuff
+                context.category = "generalOne";
+                goToAsk();
+            }
+        });
+
+        generalTwo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Do stuff
+                context.category = "generalTwo";
                 goToAsk();
             }
         });
@@ -90,7 +110,9 @@ public class Categories extends AppCompatActivity {
         devops.setBackgroundResource(R.drawable.buttonround);
         qa.setBackgroundResource(R.drawable.buttonround);
         ba.setBackgroundResource(R.drawable.buttonround);
-        delivery.setBackgroundResource(R.drawable.buttonround);
+        logic.setBackgroundResource(R.drawable.buttonround);
+        generalOne.setBackgroundResource(R.drawable.buttonround);
+        generalTwo.setBackgroundResource(R.drawable.buttonround);
     }
 
     public void goToAsk(){

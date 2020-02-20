@@ -12,6 +12,7 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Random;
 
 public class Ask extends AppCompatActivity {
 
@@ -24,12 +25,24 @@ public class Ask extends AppCompatActivity {
 
     TextView question, bonus, bulletAward;
 
+    Random random = new Random();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ask);
+        int questionNum;
 
-        fileName = context.category + context.numberOfTurns + fileName;
+        if (context.numberOfTurns<4){
+            questionNum = chooseEasyQuestion();
+        }
+        else{
+            questionNum = chooseHardQuestion();
+        }
+
+
+
+        fileName = context.category + questionNum + fileName;
 
         question = findViewById(R.id.ask_question);
 
@@ -69,6 +82,24 @@ public class Ask extends AppCompatActivity {
         buttonColorSetter();
 
         load();
+    }
+
+    private int chooseEasyQuestion(){
+        int questionInt = random.nextInt(4)+1;
+        if (context.askedEasyQuestions.contains(questionInt)){
+            return chooseEasyQuestion();
+        }
+        context.askedEasyQuestions.add(questionInt);
+        return questionInt;
+    }
+
+    private int chooseHardQuestion(){
+        int questionInt = random.nextInt(3)+5;
+        if (context.askedHardQuestions.contains(questionInt)){
+            return chooseHardQuestion();
+        }
+        context.askedHardQuestions.add(questionInt);
+        return questionInt;
     }
 
     public void buttonColorSetter(){

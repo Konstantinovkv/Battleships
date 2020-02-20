@@ -403,7 +403,7 @@ public class PlayerField extends AppCompatActivity {
         destroyer.setBackgroundResource(R.drawable.android_button_pur);
         sub.setBackgroundResource(R.drawable.android_button_pur);
         randomized = true;
-        legend.setText("You have placed your ships ar random. Click SUBMIT to play.");
+        legend.setText("You have placed your ships at random. Click SUBMIT to play.");
         buttonColourSetter();
         possibleButtons.clear();
         for (int i = 0; i < context.playerField.length; i++) {

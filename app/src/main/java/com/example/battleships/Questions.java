@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Questions extends AppCompatActivity {
 
-    Button questionOne, questionTwo, questionThree, questionFour, questionFive, back;
+    Button questionOne, questionTwo, questionThree, questionFour, questionFive, questionSix, questionSeven, back;
 
     ApplicationContext context = ApplicationContext.getContext();
 
@@ -21,7 +21,9 @@ public class Questions extends AppCompatActivity {
         questionTwo = findViewById(R.id.question_2);
         questionThree = findViewById(R.id.question_3);
         questionFour = findViewById(R.id.question_4);
-        questionFive = findViewById(R.id.admin_category_5);
+        questionFive = findViewById(R.id.question_5);
+        questionSix = findViewById(R.id.question_6);
+        questionSeven = findViewById(R.id.question_7);
         back = findViewById(R.id.back_questions);
 
         questionOne.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +66,22 @@ public class Questions extends AppCompatActivity {
             }
         });
 
+        questionSix.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Do stuff
+                ClickMethods(6);
+            }
+        });
+
+        questionSeven.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Do stuff
+                ClickMethods(7);
+            }
+        });
+
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,6 +97,8 @@ public class Questions extends AppCompatActivity {
         questionThree.setBackgroundResource(R.drawable.buttonround);
         questionFour.setBackgroundResource(R.drawable.buttonround);
         questionFive.setBackgroundResource(R.drawable.buttonround);
+        questionSix.setBackgroundResource(R.drawable.buttonround);
+        questionSeven.setBackgroundResource(R.drawable.buttonround);
     }
 
     private void ClickMethods(int question){

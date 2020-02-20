@@ -68,7 +68,7 @@
         android:layout_width="0dp"
         android:layout_height="90dp"
         android:layout_marginTop="40dp"
-        android:text="Delivery"
+        android:text="Logic"
         android:textSize="24sp"
         android:textStyle="bold"
         android:textColor="@color/white"
@@ -76,6 +76,34 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/admin_category_4"
         app:layout_constraintTop_toBottomOf="@+id/admin_category_4" />
+
+    <Button
+        android:id="@+id/admin_category_6"
+        android:layout_width="0dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="40dp"
+        android:text="General"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/admin_category_4"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/admin_category_4"
+        app:layout_constraintTop_toBottomOf="@+id/admin_category_5" />
+
+    <Button
+        android:id="@+id/admin_category_7"
+        android:layout_width="0dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="40dp"
+        android:text="General"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/admin_category_4"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/admin_category_4"
+        app:layout_constraintTop_toBottomOf="@+id/admin_category_6" />
 
     <Button
         android:id="@+id/admin_category_2"

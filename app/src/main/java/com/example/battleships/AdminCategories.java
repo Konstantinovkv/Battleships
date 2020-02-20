@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class AdminCategories extends AppCompatActivity {
 
-    Button dev, devops, qa, ba, delivery, back;
+    Button dev, devops, qa, ba, logic, generalOne, generalTwo, back;
 
     static ApplicationContext context = ApplicationContext.getContext();
 
@@ -21,7 +21,9 @@ public class AdminCategories extends AppCompatActivity {
         devops = findViewById(R.id.admin_category_2);
         qa = findViewById(R.id.admin_category_3);
         ba = findViewById(R.id.admin_category_4);
-        delivery = findViewById(R.id.admin_category_5);
+        logic = findViewById(R.id.admin_category_5);
+        generalOne = findViewById(R.id.admin_category_6);
+        generalTwo = findViewById(R.id.admin_category_7);
         back = findViewById(R.id.back_admin_categories);
 
         dev.setOnClickListener(new View.OnClickListener() {
@@ -61,11 +63,29 @@ public class AdminCategories extends AppCompatActivity {
             }
         });
 
-        delivery.setOnClickListener(new View.OnClickListener() {
+        logic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Do stuff
-                context.category = "delivery";
+                context.category = "logic";
+                goToQuestions();
+            }
+        });
+
+        generalOne.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Do stuff
+                context.category = "generalOne";
+                goToQuestions();
+            }
+        });
+
+        generalTwo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Do stuff
+                context.category = "generalTwo";
                 goToQuestions();
             }
         });
@@ -84,7 +104,9 @@ public class AdminCategories extends AppCompatActivity {
         devops.setBackgroundResource(R.drawable.buttonround);
         qa.setBackgroundResource(R.drawable.buttonround);
         ba.setBackgroundResource(R.drawable.buttonround);
-        delivery.setBackgroundResource(R.drawable.buttonround);
+        logic.setBackgroundResource(R.drawable.buttonround);
+        generalOne.setBackgroundResource(R.drawable.buttonround);
+        generalTwo.setBackgroundResource(R.drawable.buttonround);
     }
 
     public void goToQuestions(){

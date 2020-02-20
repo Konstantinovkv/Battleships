@@ -109,11 +109,10 @@ public class AdminEditor extends AppCompatActivity {
 
         String jsonStr = objectMapper.writeValueAsString(quObj);
 
-        String text = jsonStr;
         FileOutputStream fos = null;
         try {
             fos = openFileOutput(fileName, MODE_PRIVATE);
-            fos.write(text.getBytes());
+            fos.write(jsonStr.getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }

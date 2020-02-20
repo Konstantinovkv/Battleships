@@ -267,6 +267,8 @@ public class Fields extends AppCompatActivity {
         context.question = 1;
         context.numberOfBullets = 0;
         context.bonus = false;
+        context.askedHardQuestions.clear();
+        context.askedEasyQuestions.clear();
     }
 
     private void initializeButtons(){
